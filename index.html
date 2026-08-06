@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Kivora Tech Pvt. Ltd. — Enterprise cloud, cybersecurity, AI and infrastructure engineered for the next frontier." />
+<title>Kivora Tech Pvt. Ltd. — Engineering the Next Frontier</title>
+
+<!-- ================= FONTS ================= -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@300;400;600;800&display=swap" rel="stylesheet" />
+
+<style>
+/* =========================================================
+   KIVORA TECH — CINEMATIC SPACE CORPORATE SITE
+   All styling embedded. Design tokens first.
+   ========================================================= */
+:root{
+  --black:#050505;
+  --midnight:#0c0c0e;
+  --bronze:#8a6420;
+  --gold:#e8b64a;
+  --goldlight:#ffd97a;
+  --champagne:#cf9a4e;
+  --white:#f4f4f6;
+  --muted:#a4a4ad;
+  --glass:rgba(255,255,255,0.05);
+  --glass-brd:rgba(255,255,255,0.12);
+  --grad-primary:linear-gradient(115deg,var(--goldlight),var(--gold) 35%,var(--bronze) 70%,var(--champagne));
+  --grad-soft:linear-gradient(135deg,rgba(255,217,122,.14),rgba(138,100,32,.20));
+  --shadow-soft:0 20px 60px rgba(0,0,0,.55);
+  --radius:22px;
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Sora',system-ui,sans-serif;
+  background:var(--black);
+  color:var(--white);
+  overflow-x:hidden;
+  line-height:1.6;
+  cursor:none;
+}
+h1,h2,h3,.display{font-family:'Space Grotesk',sans-serif;letter-spacing:-.02em;line-height:1.05}
+a{color:inherit;text-decoration:none}
+section{position:relative;z-index:2;padding:clamp(70px,10vw,150px) clamp(20px,6vw,90px)}
+::selection{background:var(--gold);color:#1a1205}
+
+/* ---------- background layers (fixed, always moving) ---------- */
+#bg-canvas{position:fixed;inset:0;z-index:0;display:block}
+.bg-fog{
+  position:fixed;inset:-20%;z-index:1;pointer-events:none;
+  background:
+    radial-gradient(40% 40% at 20% 20%,rgba(138,100,32,.20),transparent 60%),
+    radial-gradient(45% 45% at 80% 30%,rgba(255,217,122,.16),transparent 60%),
+    radial-gradient(50% 50% at 60% 85%,rgba(207,154,78,.14),transparent 60%);
+  filter:blur(30px);
+  animation:fogMove 26s ease-in-out infinite alternate;
+}
+@keyframes fogMove{0%{transform:translate3d(0,0,0) scale(1)}100%{transform:translate3d(-4%,3%,0) scale(1.1)}}
+.bg-grid{
+  position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.14;
+  background-image:linear-gradient(rgba(232,182,74,.35) 1px,transparent 1px),linear-gradient(90deg,rgba(232,182,74,.35) 1px,transparent 1px);
+  background-size:60px 60px;
+  mask-image:radial-gradient(ellipse 70% 60% at 50% 40%,#000 30%,transparent 80%);
+  -webkit-mask-image:radial-gradient(ellipse 70% 60% at 50% 40%,#000 30%,transparent 80%);
+  animation:gridDrift 40s linear infinite;
+}
+@keyframes gridDrift{0%{background-position:0 0}100%{background-position:60px 60px}}
+.noise{position:fixed;inset:0;z-index:60;pointer-events:none;opacity:.05;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+.scanlines{position:fixed;inset:0;z-index:59;pointer-events:none;opacity:.06;
+  background:repeating-linear-gradient(0deg,transparent 0 2px,rgba(255,217,122,.5) 2px 3px);}
+
+/* ---------- custom cursor ---------- */
+.cursor-dot,.cursor-ring{position:fixed;top:0;left:0;z-index:9999;pointer-events:none;border-radius:50%;transform:translate(-50%,-50%);mix-blend-mode:screen}
+.cursor-dot{width:7px;height:7px;background:var(--goldlight);box-shadow:0 0 12px var(--goldlight)}
+.cursor-ring{width:38px;height:38px;border:1.5px solid rgba(255,217,122,.6);transition:width .25s var(--ease),height .25s var(--ease),background .25s,border-color .25s}
+.cursor-ring.hover{width:64px;height:64px;background:rgba(255,217,122,.12);border-color:var(--champagne)}
+@media(hover:none){.cursor-dot,.cursor-ring{display:none}body{cursor:auto}}
+
+/* ---------- loading screen ---------- */
+#loader{position:fixed;inset:0;z-index:99999;background:radial-gradient(circle at 50% 50%,#0d0d0f,#050505 70%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:26px;transition:opacity .8s var(--ease),visibility .8s}
+#loader.hidden{opacity:0;visibility:hidden}
+.loader-logo{font-family:'Space Grotesk';font-size:clamp(30px,6vw,60px);font-weight:700;letter-spacing:.3em;background:var(--grad-primary);-webkit-background-clip:text;background-clip:text;color:transparent;animation:pulse 2s ease-in-out infinite}
+.loader-bar{width:min(320px,70vw);height:3px;border-radius:99px;background:rgba(255,255,255,.1);overflow:hidden}
+.loader-bar span{display:block;height:100%;width:0;background:var(--grad-primary);box-shadow:0 0 18px var(--goldlight)}
+.loader-pct{font-size:12px;letter-spacing:.4em;color:var(--muted)}
+@keyframes pulse{0%,100%{opacity:.6;filter:drop-shadow(0 0 6px rgba(255,217,122,.4))}50%{opacity:1;filter:drop-shadow(0 0 22px rgba(255,217,122,.9))}}
+.loader-ring{position:absolute;width:min(420px,80vw);aspect-ratio:1;border-radius:50%;border:1px solid rgba(255,217,122,.15);animation:spin 8s linear infinite}
+.loader-ring::after{content:"";position:absolute;top:-4px;left:50%;width:8px;height:8px;border-radius:50%;background:var(--goldlight);box-shadow:0 0 16px var(--goldlight)}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ---------- navigation ---------- */
+header.nav{position:fixed;top:0;left:0;width:100%;z-index:500;display:flex;align-items:center;justify-content:space-between;
+  padding:18px clamp(20px,5vw,70px);transition:background .4s,backdrop-filter .4s,padding .4s;}
+header.nav.scrolled{background:rgba(6,11,31,.6);backdrop-filter:blur(18px);border-bottom:1px solid var(--glass-brd);padding:12px clamp(20px,5vw,70px)}
+.brand{display:flex;align-items:center;gap:12px;font-family:'Space Grotesk';font-weight:700;font-size:20px;letter-spacing:.04em}
+.brand .mark{width:30px;height:30px;border-radius:9px;background:var(--grad-primary);box-shadow:0 0 20px rgba(232,182,74,.7);position:relative;animation:spin 12s linear infinite}
+.brand .mark::after{content:"";position:absolute;inset:6px;border-radius:5px;background:var(--black)}
+.brand span{background:var(--grad-primary);-webkit-background-clip:text;background-clip:text;color:transparent}
+.nav-links{display:flex;gap:30px;align-items:center}
+.nav-links a{font-size:14px;color:var(--muted);position:relative;transition:color .3s}
+.nav-links a::after{content:"";position:absolute;left:0;bottom:-6px;width:0;height:2px;background:var(--grad-primary);transition:width .3s var(--ease)}
+.nav-links a:hover{color:var(--white)}.nav-links a:hover::after{width:100%}
+.nav-cta{padding:10px 22px;border-radius:99px;font-size:14px;color:#fff;background:var(--grad-soft);border:1px solid var(--glass-brd);backdrop-filter:blur(8px)}
+.burger{display:none;flex-direction:column;gap:5px;background:none;border:0;cursor:none}
+.burger span{width:26px;height:2px;background:var(--white);transition:.3s}
+@media(max-width:900px){
+  .nav-links{position:fixed;inset:0 0 0 auto;width:min(78vw,340px);flex-direction:column;justify-content:center;background:rgba(6,11,31,.95);backdrop-filter:blur(20px);transform:translateX(100%);transition:transform .5s var(--ease);border-left:1px solid var(--glass-brd)}
+  .nav-links.open{transform:translateX(0)}
+  .burger{display:flex}
+}
+
+/* ---------- shared UI ---------- */
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:12px;letter-spacing:.35em;text-transform:uppercase;color:var(--goldlight);margin-bottom:22px}
+.eyebrow::before{content:"";width:34px;height:1px;background:var(--goldlight);box-shadow:0 0 8px var(--goldlight)}
+.section-title{font-size:clamp(30px,5vw,58px);font-weight:700;margin-bottom:20px}
+.section-title .grad{background:var(--grad-primary);-webkit-background-clip:text;background-clip:text;color:transparent}
+.section-sub{color:var(--muted);max-width:620px;font-size:clamp(15px,1.4vw,18px)}
+.center{text-align:center}.center .section-sub{margin:0 auto}
+.btn{position:relative;display:inline-flex;align-items:center;gap:10px;padding:15px 34px;border-radius:99px;font-weight:600;font-size:15px;overflow:hidden;border:1px solid transparent;transition:transform .3s var(--ease),box-shadow .3s}
+.btn-primary{color:#1a1205;background:var(--grad-primary);background-size:200% 200%;box-shadow:0 0 30px rgba(232,182,74,.5);animation:gradShift 6s ease infinite}
+.btn-primary:hover{box-shadow:0 0 55px rgba(255,217,122,.8)}
+.btn-ghost{color:var(--white);border-color:var(--glass-brd);background:var(--glass);backdrop-filter:blur(8px)}
+.btn-ghost:hover{border-color:var(--goldlight);box-shadow:0 0 30px rgba(255,217,122,.35)}
+.btn .ripple{position:absolute;border-radius:50%;background:rgba(255,255,255,.5);transform:scale(0);animation:rip .6s ease-out;pointer-events:none}
+@keyframes rip{to{transform:scale(4);opacity:0}}
+@keyframes gradShift{0%,100%{background-position:0 50%}50%{background-position:100% 50%}}
+
+/* glass card base */
+.glass{background:var(--glass);border:1px solid var(--glass-brd);border-radius:var(--radius);backdrop-filter:blur(14px);box-shadow:var(--shadow-soft);position:relative;overflow:hidden}
+.glass::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;background:linear-gradient(130deg,rgba(255,217,122,.5),transparent 40%,transparent 60%,rgba(207,154,78,.4));-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:0;transition:opacity .4s}
+.glass:hover::before{opacity:1}
+
+/* reveal on scroll */
+.reveal{opacity:0;transform:translateY(40px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+.reveal.d1{transition-delay:.08s}.reveal.d2{transition-delay:.16s}.reveal.d3{transition-delay:.24s}.reveal.d4{transition-delay:.32s}
+
+/* ---------- HERO ---------- */
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding-top:120px}
+.hero .brand-logo{width:clamp(240px,32vw,400px);height:auto;object-fit:contain;margin-bottom:30px;display:block;
+  filter:drop-shadow(0 0 26px rgba(232,182,74,.16));animation:logoIn 1.1s var(--ease) both}
+@keyframes logoIn{from{opacity:0;transform:translateY(-14px) scale(.96)}to{opacity:1;transform:none}}
+.hero-badge{display:inline-flex;align-items:center;gap:10px;padding:8px 18px;border-radius:99px;font-size:12px;letter-spacing:.2em;color:var(--goldlight);background:var(--glass);border:1px solid var(--glass-brd);backdrop-filter:blur(8px);margin-bottom:34px}
+.hero-badge .live{width:8px;height:8px;border-radius:50%;background:var(--gold);box-shadow:0 0 10px var(--gold);animation:pulse 1.6s infinite}
+.hero h1{font-size:clamp(44px,9vw,128px);font-weight:700;max-width:14ch;margin:0 auto}
+.hero h1 .grad{background:var(--grad-primary);background-size:200% 200%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:gradShift 8s ease infinite}
+.hero-sub{margin:28px auto 40px;max-width:56ch;font-size:clamp(16px,1.7vw,21px);color:var(--muted)}
+.hero-cta{display:flex;gap:18px;flex-wrap:wrap;justify-content:center}
+.hero-stats{display:flex;gap:clamp(24px,6vw,72px);flex-wrap:wrap;justify-content:center;margin-top:70px}
+.hero-stat .num{font-family:'Space Grotesk';font-size:clamp(28px,4vw,48px);font-weight:700;background:var(--grad-primary);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero-stat .lbl{font-size:12px;letter-spacing:.25em;text-transform:uppercase;color:var(--muted)}
+.float-orb{position:absolute;border-radius:50%;filter:blur(2px);pointer-events:none;opacity:.8}
+.orb1{width:120px;height:120px;background:radial-gradient(circle at 30% 30%,#ffe9a8,#e8b64a 60%,transparent);top:18%;left:12%;box-shadow:0 0 80px rgba(232,182,74,.6);animation:floatY 9s ease-in-out infinite}
+.orb2{width:70px;height:70px;background:radial-gradient(circle at 30% 30%,#ffe3c9,#cf9a4e 60%,transparent);bottom:20%;right:14%;box-shadow:0 0 60px rgba(207,154,78,.6);animation:floatY 7s ease-in-out infinite reverse}
+.orb3{width:46px;height:46px;background:radial-gradient(circle at 30% 30%,#f4f4f6,#e8b64a 60%,transparent);top:30%;right:22%;box-shadow:0 0 50px rgba(232,182,74,.6);animation:floatY 11s ease-in-out infinite}
+@keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-32px)}}
+.scroll-ind{position:absolute;bottom:34px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:10px;color:var(--muted);font-size:11px;letter-spacing:.3em}
+.scroll-ind .mouse{width:22px;height:36px;border:2px solid var(--muted);border-radius:14px;position:relative}
+.scroll-ind .mouse::after{content:"";position:absolute;top:6px;left:50%;transform:translateX(-50%);width:4px;height:8px;border-radius:4px;background:var(--goldlight);animation:scrollDot 1.6s infinite}
+@keyframes scrollDot{0%{opacity:0;transform:translate(-50%,0)}40%{opacity:1}100%{opacity:0;transform:translate(-50%,12px)}}
+
+/* ---------- grids ---------- */
+.grid{display:grid;gap:26px}
+.g2{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(4,1fr)}
+@media(max-width:1000px){.g3,.g4{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){.g2,.g3,.g4{grid-template-columns:1fr}}
+
+/* about / mission / vision */
+.split{display:grid;grid-template-columns:1.1fr .9fr;gap:60px;align-items:center}
+@media(max-width:900px){.split{grid-template-columns:1fr;gap:40px}}
+.mv-card{padding:38px}
+.mv-card .ic{width:56px;height:56px;border-radius:16px;display:grid;place-items:center;font-size:26px;background:var(--grad-soft);border:1px solid var(--glass-brd);margin-bottom:22px}
+.mv-card h3{font-size:26px;margin-bottom:12px}
+.mv-card p{color:var(--muted);font-size:15px}
+
+/* services (tilt cards) */
+.svc{padding:34px;min-height:230px;cursor:none;transition:transform .2s ease;transform-style:preserve-3d}
+.svc .glow{position:absolute;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(255,217,122,.35),transparent 70%);filter:blur(20px);opacity:0;transition:opacity .4s;pointer-events:none;transform:translate(-50%,-50%)}
+.svc:hover .glow{opacity:1}
+.svc .ic{font-size:32px;margin-bottom:20px;transition:transform .4s var(--ease)}
+.svc:hover .ic{transform:translateZ(40px) scale(1.15)}
+.svc h3{font-size:20px;margin-bottom:10px}
+.svc p{color:var(--muted);font-size:14px}
+.svc .num{position:absolute;top:22px;right:26px;font-family:'Space Grotesk';font-size:14px;color:rgba(255,255,255,.2)}
+
+/* tech chips */
+.chips{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;max-width:1000px;margin:0 auto}
+.chip{padding:12px 22px;border-radius:99px;font-size:14px;font-weight:500;background:var(--glass);border:1px solid var(--glass-brd);backdrop-filter:blur(8px);transition:transform .3s var(--ease),box-shadow .3s,border-color .3s;animation:floatChip 6s ease-in-out infinite}
+.chip:hover{transform:translateY(-8px) scale(1.06);box-shadow:0 0 30px rgba(255,217,122,.5);border-color:var(--goldlight);color:#fff}
+@keyframes floatChip{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+
+/* process timeline */
+.process{position:relative}
+.proc-line{position:absolute;left:50%;top:0;bottom:0;width:2px;background:linear-gradient(var(--goldlight),var(--bronze),var(--champagne));transform:translateX(-50%);opacity:.4}
+.proc-step{display:grid;grid-template-columns:1fr 60px 1fr;align-items:center;gap:20px;margin-bottom:36px}
+.proc-step .dot{grid-column:2;width:20px;height:20px;justify-self:center;border-radius:50%;background:var(--goldlight);box-shadow:0 0 20px var(--goldlight)}
+.proc-card{padding:26px}
+.proc-step:nth-child(even) .proc-card{grid-column:3}
+.proc-step:nth-child(odd) .proc-card{grid-column:1;text-align:right}
+.proc-card h4{font-size:19px;margin-bottom:8px}.proc-card p{color:var(--muted);font-size:14px}
+.proc-card .step-n{font-family:'Space Grotesk';color:var(--goldlight);font-size:13px;letter-spacing:.2em}
+@media(max-width:760px){.proc-line{left:16px}.proc-step{grid-template-columns:40px 1fr;gap:16px}.proc-step .dot{grid-column:1}.proc-step .proc-card,.proc-step:nth-child(odd) .proc-card,.proc-step:nth-child(even) .proc-card{grid-column:2;text-align:left}}
+
+/* projects */
+.proj{padding:0;min-height:280px;display:flex;flex-direction:column;justify-content:flex-end}
+.proj .thumb{position:absolute;inset:0;opacity:.5;transition:transform .6s var(--ease),opacity .4s}
+.proj:hover .thumb{transform:scale(1.08);opacity:.7}
+.p1 .thumb{background:linear-gradient(135deg,#3a2c10,#e8b64a)}
+.p2 .thumb{background:linear-gradient(135deg,#33251a,#8a6420)}
+.p3 .thumb{background:linear-gradient(135deg,#1c1c1e,#e8b64a)}
+.p4 .thumb{background:linear-gradient(135deg,#33230c,#cf9a4e)}
+.proj .body{position:relative;padding:30px}
+.proj .tag{font-size:11px;letter-spacing:.25em;text-transform:uppercase;color:var(--goldlight)}
+.proj h3{font-size:22px;margin:8px 0}.proj p{color:#d6d6db;font-size:14px}
+
+/* industries */
+.ind{padding:30px;text-align:center}
+.ind .ic{font-size:34px;margin-bottom:14px}
+.ind h4{font-size:17px;margin-bottom:6px}.ind p{color:var(--muted);font-size:13px}
+
+/* why choose / stats */
+.stat-box{padding:36px;text-align:center}
+.stat-box .num{font-family:'Space Grotesk';font-size:clamp(34px,5vw,58px);font-weight:700;background:var(--grad-primary);-webkit-background-clip:text;background-clip:text;color:transparent}
+.stat-box .lbl{color:var(--muted);font-size:13px;letter-spacing:.2em;text-transform:uppercase;margin-top:8px}
+
+/* timeline (history) */
+.tl{display:flex;gap:26px;overflow-x:auto;padding-bottom:20px;scroll-snap-type:x mandatory}
+.tl::-webkit-scrollbar{height:6px}.tl::-webkit-scrollbar-thumb{background:var(--gold);border-radius:9px}
+.tl-item{min-width:260px;scroll-snap-align:start;padding:28px}
+.tl-item .yr{font-family:'Space Grotesk';font-size:30px;background:var(--grad-primary);-webkit-background-clip:text;background-clip:text;color:transparent}
+.tl-item h4{font-size:17px;margin:8px 0}.tl-item p{color:var(--muted);font-size:14px}
+
+/* innovation */
+.innov{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center}
+@media(max-width:900px){.innov{grid-template-columns:1fr}}
+.innov-visual{aspect-ratio:1;max-width:460px;margin:0 auto;position:relative;display:grid;place-items:center}
+.ring{position:absolute;border:1px solid rgba(255,217,122,.3);border-radius:50%;animation:spin linear infinite}
+.ring.r1{width:100%;height:100%;animation-duration:22s}
+.ring.r2{width:72%;height:72%;animation-duration:16s;animation-direction:reverse;border-color:rgba(207,154,78,.3)}
+.ring.r3{width:44%;height:44%;animation-duration:10s;border-color:rgba(232,182,74,.3)}
+.ring::after{content:"";position:absolute;top:-5px;left:50%;width:10px;height:10px;border-radius:50%;background:var(--goldlight);box-shadow:0 0 16px var(--goldlight)}
+.innov-core{width:26%;aspect-ratio:1;border-radius:50%;background:var(--grad-primary);box-shadow:0 0 60px rgba(232,182,74,.7);animation:pulse 3s infinite}
+
+/* testimonials */
+.quote{padding:34px}
+.quote p{font-size:16px;color:#e4e4e8;margin-bottom:20px}
+.quote .who{display:flex;align-items:center;gap:14px}
+.quote .av{width:46px;height:46px;border-radius:50%;background:var(--grad-primary)}
+.quote .who b{display:block;font-size:15px}.quote .who span{font-size:12px;color:var(--muted)}
+.stars{color:var(--gold);margin-bottom:14px;letter-spacing:3px}
+
+/* faq */
+.faq-item{border:1px solid var(--glass-brd);border-radius:16px;margin-bottom:14px;overflow:hidden;background:var(--glass);backdrop-filter:blur(8px)}
+.faq-q{width:100%;text-align:left;background:none;border:0;color:var(--white);padding:22px 26px;font-size:16px;font-family:'Sora';display:flex;justify-content:space-between;align-items:center;cursor:none}
+.faq-q .pm{transition:transform .3s}
+.faq-item.open .faq-q .pm{transform:rotate(45deg);color:var(--goldlight)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .4s var(--ease);color:var(--muted);padding:0 26px}
+.faq-item.open .faq-a{max-height:220px;padding:0 26px 24px}
+
+/* CTA */
+.cta-wrap{padding:clamp(50px,7vw,90px);text-align:center;background:var(--grad-soft);border:1px solid var(--glass-brd);border-radius:34px;position:relative;overflow:hidden}
+.cta-wrap h2{font-size:clamp(30px,5vw,58px);margin-bottom:18px}
+.cta-wrap .beam{position:absolute;inset:0;background:conic-gradient(from 0deg,transparent,rgba(255,217,122,.15),transparent 30%);animation:spin 12s linear infinite;pointer-events:none}
+
+/* contact */
+.contact-form{display:grid;gap:18px;padding:38px}
+.field{display:flex;flex-direction:column;gap:8px}
+.field label{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.field input,.field textarea{background:rgba(255,255,255,.04);border:1px solid var(--glass-brd);border-radius:12px;padding:14px 16px;color:var(--white);font-family:'Sora';font-size:15px;transition:border-color .3s,box-shadow .3s;cursor:none}
+.field input:focus,.field textarea:focus{outline:none;border-color:var(--goldlight);box-shadow:0 0 20px rgba(255,217,122,.25)}
+.contact-info{display:flex;flex-direction:column;gap:22px}
+.ci-row{display:flex;gap:16px;align-items:flex-start}
+.ci-row .ic{width:46px;height:46px;border-radius:12px;display:grid;place-items:center;background:var(--grad-soft);border:1px solid var(--glass-brd);font-size:20px;flex-shrink:0}
+.ci-row b{display:block;font-size:15px}.ci-row span{color:var(--muted);font-size:14px}
+.form-msg{font-size:14px;color:var(--gold);min-height:20px}
+
+/* footer */
+footer{position:relative;z-index:2;padding:70px clamp(20px,6vw,90px) 40px;border-top:1px solid var(--glass-brd);background:rgba(2,3,10,.7);backdrop-filter:blur(10px)}
+.foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:50px}
+@media(max-width:800px){.foot-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:480px){.foot-grid{grid-template-columns:1fr}}
+.foot-col h5{font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:var(--white);margin-bottom:18px}
+.foot-col a{display:block;color:var(--muted);font-size:14px;margin-bottom:12px;transition:color .3s}
+.foot-col a:hover{color:var(--goldlight)}
+.foot-about p{color:var(--muted);font-size:14px;max-width:36ch;margin:16px 0}
+.foot-bottom{display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;padding-top:26px;border-top:1px solid var(--glass-brd);color:var(--muted);font-size:13px}
+.socials{display:flex;gap:14px}
+.socials a{width:38px;height:38px;border-radius:10px;display:grid;place-items:center;background:var(--glass);border:1px solid var(--glass-brd);transition:transform .3s,box-shadow .3s}
+.socials a:hover{transform:translateY(-4px);box-shadow:0 0 20px rgba(255,217,122,.4)}
+
+/* magnetic helper */
+.magnetic{transition:transform .25s var(--ease)}
+
+/* reduced motion */
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  .reveal{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ LOADING SCREEN ============ -->
+<div id="loader" role="status" aria-label="Loading Kivora Tech">
+  <div class="loader-ring" aria-hidden="true"></div>
+  <div class="loader-logo">KIVORA</div>
+  <div class="loader-bar"><span id="loaderFill"></span></div>
+  <div class="loader-pct" id="loaderPct">INITIALIZING • 0%</div>
+</div>
+
+<!-- ============ BACKGROUND LAYERS ============ -->
+<canvas id="bg-canvas" aria-hidden="true"></canvas>
+<div class="bg-fog" aria-hidden="true"></div>
+<div class="bg-grid" aria-hidden="true"></div>
+<div class="scanlines" aria-hidden="true"></div>
+<div class="noise" aria-hidden="true"></div>
+
+<!-- custom cursor -->
+<div class="cursor-ring" aria-hidden="true"></div>
+<div class="cursor-dot" aria-hidden="true"></div>
+
+<!-- ============ NAVIGATION ============ -->
+<header class="nav" id="nav">
+  <a href="#hero" class="brand" aria-label="Kivora Tech home">
+    <span class="mark" aria-hidden="true"></span><span>KIVORA</span>
+  </a>
+  <nav class="nav-links" id="navLinks" aria-label="Primary">
+    <a href="#about">About</a>
+    <a href="#services">Services</a>
+    <a href="#tech">Technology</a>
+    <a href="#projects">Work</a>
+    <a href="#industries">Industries</a>
+    <a href="#faq">FAQ</a>
+    <a href="#contact" class="nav-cta magnetic">Get in touch</a>
+  </nav>
+  <button class="burger" id="burger" aria-label="Toggle menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<main>
+<!-- ============ HERO ============ -->
+<section class="hero" id="hero">
+  <div class="float-orb orb1" aria-hidden="true"></div>
+  <div class="float-orb orb2" aria-hidden="true"></div>
+  <div class="float-orb orb3" aria-hidden="true"></div>
+
+  <img class="brand-logo reveal in" src="logo.jpeg" alt="Kivora Tech logo" width="1284" height="699" />
+  <div class="hero-badge reveal in"><span class="live" aria-hidden="true"></span> Kivora Tech Pvt. Ltd. — Cloud • Security • AI</div>
+  <h1 class="reveal in">Engineering the <span class="grad">Next Frontier</span> of Enterprise Technology</h1>
+  <p class="hero-sub reveal in d1">We architect resilient cloud platforms, autonomous AI systems, and zero-trust security fabrics that power the world's most demanding enterprises — built to scale beyond the horizon.</p>
+  <div class="hero-cta reveal in d2">
+    <a href="#contact" class="btn btn-primary magnetic">Launch a project →</a>
+    <a href="#services" class="btn btn-ghost magnetic">Explore capabilities</a>
+  </div>
+  <div class="hero-stats reveal in d3">
+    <div class="hero-stat"><div class="num" data-count="500" data-suffix="+">0</div><div class="lbl">Enterprises Served</div></div>
+    <div class="hero-stat"><div class="num" data-count="99" data-suffix=".99%">0</div><div class="lbl">Platform Uptime</div></div>
+    <div class="hero-stat"><div class="num" data-count="42" data-suffix="">0</div><div class="lbl">Global Regions</div></div>
+    <div class="hero-stat"><div class="num" data-count="15" data-suffix="B+">0</div><div class="lbl">Requests / Day</div></div>
+  </div>
+  <div class="scroll-ind" aria-hidden="true"><div class="mouse"></div><span>SCROLL</span></div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section id="about">
+  <div class="split">
+    <div class="reveal">
+      <span class="eyebrow">Who we are</span>
+      <h2 class="section-title">A deep-space engineering collective for the <span class="grad">modern enterprise</span></h2>
+      <p class="section-sub">Founded by cloud architects, security researchers and machine-learning engineers, Kivora Tech Pvt. Ltd. exists to remove complexity from mission-critical technology. From hyperscale data centers to intelligent edge networks, we design systems that stay online, stay secure, and stay ahead.</p>
+      <p class="section-sub" style="margin-top:18px">Our multidisciplinary teams embed with yours — treating your uptime, your compliance posture, and your roadmap as our own. We don't ship prototypes. We ship production-grade platforms trusted by regulated industries across the globe.</p>
+    </div>
+    <div class="grid g2 reveal d1">
+      <div class="glass stat-box"><div class="num">12+</div><div class="lbl">Years in ops</div></div>
+      <div class="glass stat-box"><div class="num">340</div><div class="lbl">Engineers</div></div>
+      <div class="glass stat-box"><div class="num">SOC2</div><div class="lbl">Type II certified</div></div>
+      <div class="glass stat-box"><div class="num">24/7</div><div class="lbl">Global SRE</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MISSION / VISION ============ -->
+<section id="mission">
+  <div class="grid g2">
+    <div class="glass mv-card reveal">
+      <div class="ic" aria-hidden="true">🚀</div>
+      <h3>Our Mission</h3>
+      <p>To empower enterprises to operate at planetary scale — delivering cloud, security and intelligence platforms that are radically reliable, effortlessly secure, and built to evolve. We turn infrastructure from a cost center into a competitive advantage.</p>
+    </div>
+    <div class="glass mv-card reveal d1">
+      <div class="ic" aria-hidden="true">🌌</div>
+      <h3>Our Vision</h3>
+      <p>A world where every organization runs on autonomous, self-healing systems — where downtime is obsolete, breaches are anticipated, and human engineers are freed to build what matters. We are engineering that future, one deployment at a time.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SERVICES ============ -->
+<section id="services">
+  <div class="center reveal" style="margin-bottom:56px">
+    <span class="eyebrow" style="justify-content:center">What we do</span>
+    <h2 class="section-title">Full-spectrum <span class="grad">technology capabilities</span></h2>
+    <p class="section-sub">Ten interlocking disciplines, delivered as one seamless engineering practice.</p>
+  </div>
+  <div class="grid g3" id="svcGrid"></div>
+</section>
+
+<!-- ============ TECH STACK ============ -->
+<section id="tech">
+  <div class="center reveal" style="margin-bottom:50px">
+    <span class="eyebrow" style="justify-content:center">Under the hood</span>
+    <h2 class="section-title">A <span class="grad">battle-tested</span> technology stack</h2>
+    <p class="section-sub">Cloud-native, open, and relentlessly optimized for performance and scale.</p>
+  </div>
+  <div class="chips reveal d1" id="chipWrap"></div>
+</section>
+
+<!-- ============ OUR PROCESS ============ -->
+<section id="process">
+  <div class="center reveal" style="margin-bottom:56px">
+    <span class="eyebrow" style="justify-content:center">How we work</span>
+    <h2 class="section-title">A process engineered for <span class="grad">certainty</span></h2>
+  </div>
+  <div class="process" id="procWrap"><div class="proc-line" aria-hidden="true"></div></div>
+</section>
+
+<!-- ============ FEATURED PROJECTS ============ -->
+<section id="projects">
+  <div class="center reveal" style="margin-bottom:56px">
+    <span class="eyebrow" style="justify-content:center">Featured work</span>
+    <h2 class="section-title">Platforms we've <span class="grad">launched</span></h2>
+  </div>
+  <div class="grid g2">
+    <article class="glass proj p1 reveal"><div class="thumb" aria-hidden="true"></div><div class="body"><span class="tag">Cloud • Fintech</span><h3>Orbital Payments Grid</h3><p>Re-platformed a national payments network onto a multi-region active-active cloud, cutting transaction latency by 63% while achieving five-nines availability.</p></div></article>
+    <article class="glass proj p2 reveal d1"><div class="thumb" aria-hidden="true"></div><div class="body"><span class="tag">AI • Healthcare</span><h3>Nova Diagnostics Engine</h3><p>An AI inference platform processing 4M medical images monthly, deployed at the edge with HIPAA-grade security and sub-second results.</p></div></article>
+    <article class="glass proj p3 reveal d2"><div class="thumb" aria-hidden="true"></div><div class="body"><span class="tag">Security • Government</span><h3>Aegis Zero-Trust Fabric</h3><p>A nationwide zero-trust security mesh protecting 200k endpoints, with automated threat containment and continuous compliance.</p></div></article>
+    <article class="glass proj p4 reveal d3"><div class="thumb" aria-hidden="true"></div><div class="body"><span class="tag">DevOps • Retail</span><h3>Hyperion Delivery Platform</h3><p>A self-service internal developer platform that reduced deployment time from days to minutes across 90+ engineering teams.</p></div></article>
+  </div>
+</section>
+
+<!-- ============ INDUSTRIES ============ -->
+<section id="industries">
+  <div class="center reveal" style="margin-bottom:50px">
+    <span class="eyebrow" style="justify-content:center">Who we serve</span>
+    <h2 class="section-title">Trusted across <span class="grad">every frontier</span></h2>
+  </div>
+  <div class="grid g4" id="indGrid"></div>
+</section>
+
+<!-- ============ WHY CHOOSE US ============ -->
+<section id="why">
+  <div class="center reveal" style="margin-bottom:50px">
+    <span class="eyebrow" style="justify-content:center">Why Kivora</span>
+    <h2 class="section-title">Built to be your <span class="grad">unfair advantage</span></h2>
+  </div>
+  <div class="grid g3" id="whyGrid"></div>
+</section>
+
+<!-- ============ TIMELINE ============ -->
+<section id="timeline">
+  <div class="center reveal" style="margin-bottom:50px">
+    <span class="eyebrow" style="justify-content:center">Our journey</span>
+    <h2 class="section-title">A decade of <span class="grad">momentum</span></h2>
+  </div>
+  <div class="tl reveal d1" id="tlWrap"></div>
+</section>
+
+<!-- ============ INNOVATION ============ -->
+<section id="innovation">
+  <div class="innov">
+    <div class="reveal">
+      <span class="eyebrow">Innovation lab</span>
+      <h2 class="section-title">Research that ships to <span class="grad">production</span></h2>
+      <p class="section-sub">Our R&D division explores autonomous infrastructure, confidential computing, quantum-safe cryptography and applied generative AI — then hardens it into the platforms you rely on. Innovation isn't a demo here; it's a delivery.</p>
+      <div class="grid g2" style="margin-top:30px">
+        <div class="glass stat-box"><div class="num">40+</div><div class="lbl">Patents filed</div></div>
+        <div class="glass stat-box"><div class="num">$28M</div><div class="lbl">R&D invested</div></div>
+      </div>
+    </div>
+    <div class="innov-visual reveal d1" aria-hidden="true">
+      <div class="ring r1"></div><div class="ring r2"></div><div class="ring r3"></div>
+      <div class="innov-core"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ STATISTICS ============ -->
+<section id="stats">
+  <div class="grid g4" id="statGrid"></div>
+</section>
+
+<!-- ============ TESTIMONIALS ============ -->
+<section id="testimonials">
+  <div class="center reveal" style="margin-bottom:50px">
+    <span class="eyebrow" style="justify-content:center">Client voices</span>
+    <h2 class="section-title">What partners <span class="grad">say</span></h2>
+  </div>
+  <div class="grid g3" id="testGrid"></div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section id="faq">
+  <div class="center reveal" style="margin-bottom:50px">
+    <span class="eyebrow" style="justify-content:center">Answers</span>
+    <h2 class="section-title">Frequently asked <span class="grad">questions</span></h2>
+  </div>
+  <div style="max-width:820px;margin:0 auto" id="faqWrap" class="reveal d1"></div>
+</section>
+
+<!-- ============ CTA ============ -->
+<section id="cta">
+  <div class="cta-wrap reveal">
+    <div class="beam" aria-hidden="true"></div>
+    <span class="eyebrow" style="justify-content:center;position:relative">Ready when you are</span>
+    <h2 style="position:relative">Let's build something <span class="grad">interstellar</span></h2>
+    <p class="section-sub" style="margin:0 auto 30px;position:relative">Tell us where you want to go. Our architects will map the mission and get you there.</p>
+    <a href="#contact" class="btn btn-primary magnetic" style="position:relative">Start the conversation →</a>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section id="contact">
+  <div class="split">
+    <div class="reveal">
+      <span class="eyebrow">Contact</span>
+      <h2 class="section-title">Reach mission <span class="grad">control</span></h2>
+      <p class="section-sub" style="margin-bottom:34px">Whether it's a full platform build or a single hard problem, our team responds within one business day.</p>
+      <div class="contact-info">
+        <div class="ci-row"><div class="ic" aria-hidden="true">📍</div><div><b>Headquarters</b><span>Kathmandu Tech Park, Kathmandu, Nepal</span></div></div>
+        <div class="ci-row"><div class="ic" aria-hidden="true">✉️</div><div><b>Email</b><span>hello@kivora.tech</span></div></div>
+        <div class="ci-row"><div class="ic" aria-hidden="true">☎️</div><div><b>Phone</b><span>+977 1 555 0142</span></div></div>
+      </div>
+    </div>
+    <form class="glass contact-form reveal d1" id="contactForm" novalidate>
+      <div class="field"><label for="cName">Name</label><input id="cName" name="name" type="text" required placeholder="Ada Lovelace" /></div>
+      <div class="field"><label for="cEmail">Work email</label><input id="cEmail" name="email" type="email" required placeholder="you@company.com" /></div>
+      <div class="field"><label for="cMsg">How can we help?</label><textarea id="cMsg" name="message" rows="4" required placeholder="Tell us about your mission…"></textarea></div>
+      <button type="submit" class="btn btn-primary magnetic">Send transmission →</button>
+      <div class="form-msg" id="formMsg" role="status" aria-live="polite"></div>
+    </form>
+  </div>
+</section>
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="foot-grid">
+    <div class="foot-col foot-about">
+      <a href="#hero" class="brand"><span class="mark" aria-hidden="true"></span><span>KIVORA</span></a>
+      <p>Engineering the next frontier of enterprise cloud, security and AI. Built to scale beyond the horizon.</p>
+      <div class="socials">
+        <a href="#" aria-label="X">𝕏</a>
+        <a href="#" aria-label="LinkedIn">in</a>
+        <a href="#" aria-label="GitHub">⌘</a>
+        <a href="#" aria-label="YouTube">▶</a>
+      </div>
+    </div>
+    <div class="foot-col"><h5>Company</h5><a href="#about">About</a><a href="#innovation">Innovation</a><a href="#timeline">Journey</a><a href="#contact">Careers</a></div>
+    <div class="foot-col"><h5>Services</h5><a href="#services">Cloud Computing</a><a href="#services">Cybersecurity</a><a href="#services">AI Solutions</a><a href="#services">DevOps</a></div>
+    <div class="foot-col"><h5>Resources</h5><a href="#faq">FAQ</a><a href="#projects">Case studies</a><a href="#tech">Tech stack</a><a href="#contact">Support</a></div>
+  </div>
+  <div class="foot-bottom">
+    <span>© <span id="year"></span> Kivora Tech Pvt. Ltd. All rights reserved.</span>
+    <span>Privacy · Terms · Security · Status</span>
+  </div>
+</footer>
+
+<!-- ================= THREE.JS (CDN, optional per brief) ================= -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
+
+<script>
+/* =========================================================
+   KIVORA TECH — INTERACTION & ANIMATION ENGINE
+   Modular functions. requestAnimationFrame driven.
+   ========================================================= */
+(function(){
+  "use strict";
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- DATA ---------- */
+  const services=[
+    {ic:'☁️',t:'Cloud Computing',d:'Multi-cloud & hybrid platforms engineered for elastic scale, cost efficiency and zero-downtime migrations.'},
+    {ic:'🛡️',t:'Cybersecurity',d:'Zero-trust architecture, threat hunting and 24/7 SOC operations that stop breaches before they start.'},
+    {ic:'🌐',t:'Networking',d:'Software-defined global networks with intelligent routing, ultra-low latency and self-healing failover.'},
+    {ic:'🏗️',t:'Infrastructure',d:'Immutable, infrastructure-as-code foundations built for resilience across regions and clouds.'},
+    {ic:'💻',t:'Software Development',d:'Cloud-native applications and APIs crafted with rigorous engineering and delightful UX.'},
+    {ic:'⚙️',t:'DevOps',d:'Golden-path CI/CD, GitOps and platform engineering that ship value in minutes, not months.'},
+    {ic:'🧠',t:'AI Solutions',d:'Production-grade ML, generative AI and intelligent automation tuned to your data and domain.'},
+    {ic:'🧭',t:'IT Consulting',d:'Strategy, architecture and modernization roadmaps from engineers who have shipped at scale.'},
+    {ic:'🛰️',t:'Managed Services',d:'Fully-managed operations with proactive SRE, observability and guaranteed SLAs around the clock.'},
+    {ic:'🏢',t:'Data Center Solutions',d:'High-density, energy-optimized data center design, deployment and lifecycle management.'}
+  ];
+  const tech=['Kubernetes','Terraform','AWS','Azure','Go','Rust','Python','TypeScript','React','Node.js','PostgreSQL','Kafka','Redis','GraphQL','gRPC','Istio','Prometheus','Grafana','TensorFlow','PyTorch','Docker','Vault','ArgoCD','Snowflake','Elasticsearch','WebAssembly'];
+  const process=[
+    {n:'01',t:'Discover',d:'We embed with your teams to map goals, constraints, risk and the current landscape.'},
+    {n:'02',t:'Architect',d:'We design a resilient, secure and scalable blueprint — reviewed against real production loads.'},
+    {n:'03',t:'Build',d:'Iterative delivery with automated testing, security gates and continuous stakeholder demos.'},
+    {n:'04',t:'Launch',d:'Zero-downtime rollout with observability, runbooks and load-tested confidence.'},
+    {n:'05',t:'Operate',d:'24/7 SRE, proactive optimization and continuous evolution as your needs grow.'}
+  ];
+  const industries=[
+    {ic:'🏦',t:'Finance',d:'Banking, payments & fintech'},
+    {ic:'🏥',t:'Healthcare',d:'Providers & life sciences'},
+    {ic:'🛍️',t:'Retail',d:'Commerce at global scale'},
+    {ic:'🏛️',t:'Government',d:'Secure public sector systems'},
+    {ic:'📡',t:'Telecom',d:'Carrier-grade networks'},
+    {ic:'⚡',t:'Energy',d:'Grid & utility platforms'},
+    {ic:'🎓',t:'Education',d:'Learning infrastructure'},
+    {ic:'🚚',t:'Logistics',d:'Supply chain intelligence'}
+  ];
+  const why=[
+    {ic:'🎯',t:'Outcome-obsessed',d:'We measure success by your uptime, velocity and business results — not billable hours.'},
+    {ic:'🔒',t:'Security by default',d:'Every platform is hardened, audited and compliance-ready from the very first commit.'},
+    {ic:'📈',t:'Scale-proven',d:'Our systems run billions of requests daily for the world\'s most demanding workloads.'},
+    {ic:'🤝',t:'True partnership',d:'We embed with your teams and transfer knowledge, so you own your future.'},
+    {ic:'⚡',t:'Relentless speed',d:'Golden-path automation means ideas reach production in minutes, safely.'},
+    {ic:'🌍',t:'Global reach',d:'42 regions, follow-the-sun operations and local expertise wherever you operate.'}
+  ];
+  const timeline=[
+    {y:'2013',t:'Founded',d:'Three engineers, one mission: kill downtime.'},
+    {y:'2016',t:'First hyperscale',d:'Launched our first billion-request platform.'},
+    {y:'2018',t:'Security division',d:'Opened our 24/7 global SOC.'},
+    {y:'2020',t:'AI lab',d:'Established the Kivora AI research group.'},
+    {y:'2022',t:'Global expansion',d:'Operations across 42 regions worldwide.'},
+    {y:'2024',t:'Autonomous ops',d:'Shipped self-healing infrastructure platform.'}
+  ];
+  const stats=[
+    {n:500,s:'+',l:'Enterprise clients'},
+    {n:99,s:'.99%',l:'Uptime SLA'},
+    {n:15,s:'B+',l:'Requests / day'},
+    {n:340,s:'',l:'Engineers worldwide'}
+  ];
+  const tests=[
+    {q:'Kivora rebuilt our payments core with zero downtime. What used to take days now takes minutes. They are simply the best engineering partner we have worked with.',n:'Priya Sharma',r:'CTO, Meridian Bank',s:'★★★★★'},
+    {q:'Their zero-trust rollout stopped three active threats in the first month. The team operates like an extension of our own — sharp, fast, relentless.',n:'David Chen',r:'CISO, Helix Health',s:'★★★★★'},
+    {q:'We scaled from 1M to 40M users without a single outage. Kivora\'s platform thinking is a decade ahead of everyone else.',n:'Amara Okafor',r:'VP Eng, Novastore',s:'★★★★★'}
+  ];
+  const faqs=[
+    {q:'What industries does Kivora Tech specialize in?',a:'We serve finance, healthcare, government, retail, telecom, energy, education and logistics — anywhere reliability, security and scale are mission-critical.'},
+    {q:'Do you work with our existing engineering team?',a:'Always. We embed with your teams, transfer knowledge and build golden paths so you own and evolve your platform long after we hand off.'},
+    {q:'How do you ensure security and compliance?',a:'Security is built into every commit. We are SOC 2 Type II certified and deliver HIPAA, PCI-DSS, GDPR and FedRAMP-aligned platforms with continuous compliance automation.'},
+    {q:'What is your typical engagement model?',a:'From focused advisory sprints to multi-year managed platforms, we tailor engagements to your goals. Most partnerships begin with a discovery phase and a fixed-scope blueprint.'},
+    {q:'How quickly can we get started?',a:'Discovery can begin within one week. Our architects respond to every inquiry within one business day.'}
+  ];
+
+  /* ---------- render helpers ---------- */
+  const el=(html)=>{const t=document.createElement('template');t.innerHTML=html.trim();return t.content.firstChild;};
+  const mount=(id,arr,fn)=>{const w=document.getElementById(id);if(w)arr.forEach((x,i)=>w.appendChild(fn(x,i)));};
+
+  mount('svcGrid',services,(s,i)=>el(`<article class="glass svc reveal ${'d'+(i%4)}"><div class="glow"></div><span class="num">${String(i+1).padStart(2,'0')}</span><div class="ic">${s.ic}</div><h3>${s.t}</h3><p>${s.d}</p></article>`));
+  mount('chipWrap',tech,(t,i)=>{const c=el(`<span class="chip">${t}</span>`);c.style.animationDelay=(i*0.15%3)+'s';return c;});
+  mount('procWrap',process,(p)=>el(`<div class="proc-step reveal"><div class="glass proc-card"><span class="step-n">STEP ${p.n}</span><h4>${p.t}</h4><p>${p.d}</p></div><div class="dot"></div></div>`));
+  mount('indGrid',industries,(x,i)=>el(`<article class="glass ind reveal ${'d'+(i%4)}"><div class="ic">${x.ic}</div><h4>${x.t}</h4><p>${x.d}</p></article>`));
+  mount('whyGrid',why,(x,i)=>el(`<article class="glass mv-card reveal ${'d'+(i%3)}"><div class="ic">${x.ic}</div><h3 style="font-size:20px">${x.t}</h3><p>${x.d}</p></article>`));
+  mount('tlWrap',timeline,(x)=>el(`<div class="glass tl-item reveal"><div class="yr">${x.y}</div><h4>${x.t}</h4><p>${x.d}</p></div>`));
+  mount('statGrid',stats,(x,i)=>el(`<div class="glass stat-box reveal ${'d'+(i%4)}"><div class="num" data-count="${x.n}" data-suffix="${x.s}">0</div><div class="lbl">${x.l}</div></div>`));
+  mount('testGrid',tests,(x,i)=>el(`<article class="glass quote reveal ${'d'+(i%3)}"><div class="stars">${x.s}</div><p>“${x.q}”</p><div class="who"><div class="av"></div><div><b>${x.n}</b><span>${x.r}</span></div></div></article>`));
+  mount('faqWrap',faqs,(x)=>el(`<div class="faq-item reveal"><button class="faq-q" aria-expanded="false"><span>${x.q}</span><span class="pm">+</span></button><div class="faq-a"><p>${x.a}</p></div></div>`));
+
+  document.getElementById('year').textContent=new Date().getFullYear();
+
+  /* ---------- LOADER ---------- */
+  function runLoader(){
+    const fill=document.getElementById('loaderFill'),pct=document.getElementById('loaderPct'),loader=document.getElementById('loader');
+    let p=0;
+    const finish=()=>{loader.classList.add('hidden');document.body.style.overflow='';};
+    if(reduceMotion){fill.style.width='100%';pct.textContent='READY • 100%';finish();return;}
+    document.body.style.overflow='hidden';
+    const t=setInterval(()=>{
+      p+=Math.random()*14+4;if(p>=100){p=100;clearInterval(t);setTimeout(finish,450);}
+      fill.style.width=p+'%';pct.textContent=(p<100?'INITIALIZING':'SYSTEMS ONLINE')+' • '+Math.floor(p)+'%';
+    },140);
+  }
+  window.addEventListener('load',runLoader);
+  if(document.readyState==='complete')runLoader();
+
+  /* ---------- NAV ---------- */
+  const nav=document.getElementById('nav'),burger=document.getElementById('burger'),navLinks=document.getElementById('navLinks');
+  window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>40),{passive:true});
+  burger.addEventListener('click',()=>{const o=navLinks.classList.toggle('open');burger.setAttribute('aria-expanded',o);});
+  navLinks.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{navLinks.classList.remove('open');burger.setAttribute('aria-expanded',false);}));
+
+  /* ---------- SCROLL REVEAL ---------- */
+  const io=new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});
+  },{threshold:0.12});
+  document.querySelectorAll('.reveal:not(.in)').forEach(n=>io.observe(n));
+
+  /* ---------- COUNTERS ---------- */
+  function animateCount(node){
+    const target=parseFloat(node.dataset.count),suffix=node.dataset.suffix||'';
+    if(reduceMotion){node.textContent=target+suffix;return;}
+    const dur=1600,start=performance.now();
+    function step(now){
+      const t=Math.min((now-start)/dur,1),eased=1-Math.pow(1-t,3);
+      let v=target*eased;
+      node.textContent=(target%1!==0?v.toFixed(2):Math.floor(v))+suffix;
+      if(t<1)requestAnimationFrame(step);else node.textContent=target+suffix;
+    }
+    requestAnimationFrame(step);
+  }
+  const cio=new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{if(e.isIntersecting){animateCount(e.target);cio.unobserve(e.target);}});
+  },{threshold:0.5});
+  document.querySelectorAll('[data-count]').forEach(n=>cio.observe(n));
+
+  /* ---------- FAQ ---------- */
+  document.getElementById('faqWrap').addEventListener('click',(e)=>{
+    const btn=e.target.closest('.faq-q');if(!btn)return;
+    const item=btn.parentElement,open=item.classList.toggle('open');
+    btn.setAttribute('aria-expanded',open);
+  });
+
+  /* ---------- CONTACT FORM ---------- */
+  const form=document.getElementById('contactForm');
+  form.addEventListener('submit',(e)=>{
+    e.preventDefault();
+    const msg=document.getElementById('formMsg');
+    if(!form.checkValidity()){msg.style.color='#e8874f';msg.textContent='Please complete all fields with a valid email.';return;}
+    msg.style.color='var(--gold)';msg.textContent='Transmission received — mission control will respond within one business day. 🚀';
+    form.reset();
+  });
+
+  /* ---------- CUSTOM CURSOR ---------- */
+  const dot=document.querySelector('.cursor-dot'),ring=document.querySelector('.cursor-ring');
+  let mx=innerWidth/2,my=innerHeight/2,rx=mx,ry=my;
+  const hasFinePointer=window.matchMedia('(hover:hover) and (pointer:fine)').matches;
+  if(hasFinePointer && !reduceMotion){
+    window.addEventListener('mousemove',(e)=>{mx=e.clientX;my=e.clientY;dot.style.transform=`translate(${mx}px,${my}px) translate(-50%,-50%)`;});
+    (function ringLoop(){rx+=(mx-rx)*0.18;ry+=(my-ry)*0.18;ring.style.transform=`translate(${rx}px,${ry}px) translate(-50%,-50%)`;requestAnimationFrame(ringLoop);})();
+    document.querySelectorAll('a,button,input,textarea,.svc,.chip,.glass,.magnetic').forEach(n=>{
+      n.addEventListener('mouseenter',()=>ring.classList.add('hover'));
+      n.addEventListener('mouseleave',()=>ring.classList.remove('hover'));
+    });
+  }
+
+  /* ---------- MAGNETIC BUTTONS ---------- */
+  if(hasFinePointer && !reduceMotion){
+    document.querySelectorAll('.magnetic').forEach(m=>{
+      m.addEventListener('mousemove',(e)=>{const r=m.getBoundingClientRect();const x=e.clientX-r.left-r.width/2;const y=e.clientY-r.top-r.height/2;m.style.transform=`translate(${x*0.3}px,${y*0.4}px)`;});
+      m.addEventListener('mouseleave',()=>m.style.transform='');
+    });
+  }
+
+  /* ---------- BUTTON RIPPLE ---------- */
+  document.querySelectorAll('.btn').forEach(b=>b.addEventListener('click',(e)=>{
+    if(reduceMotion)return;
+    const r=b.getBoundingClientRect(),s=el('<span class="ripple"></span>'),size=Math.max(r.width,r.height);
+    s.style.width=s.style.height=size+'px';s.style.left=(e.clientX-r.left-size/2)+'px';s.style.top=(e.clientY-r.top-size/2)+'px';
+    b.appendChild(s);setTimeout(()=>s.remove(),650);
+  }));
+
+  /* ---------- HERO PARALLAX (mouse) ---------- */
+  if(hasFinePointer && !reduceMotion){
+    const orbs=document.querySelectorAll('.float-orb');
+    window.addEventListener('mousemove',(e)=>{
+      const dx=(e.clientX/innerWidth-0.5),dy=(e.clientY/innerHeight-0.5);
+      orbs.forEach((o,i)=>{const d=(i+1)*22;o.style.marginLeft=(dx*d)+'px';o.style.marginTop=(dy*d)+'px';});
+    });
+  }
+
+  /* ---------- 3D TILT ON SERVICE CARDS ---------- */
+  if(hasFinePointer && !reduceMotion){
+    document.querySelectorAll('.svc').forEach(card=>{
+      card.addEventListener('mousemove',(e)=>{
+        const r=card.getBoundingClientRect(),px=(e.clientX-r.left)/r.width-0.5,py=(e.clientY-r.top)/r.height-0.5;
+        card.style.transform=`perspective(800px) rotateY(${px*10}deg) rotateX(${-py*10}deg) translateY(-6px)`;
+        const g=card.querySelector('.glow');if(g){g.style.left=(e.clientX-r.left)+'px';g.style.top=(e.clientY-r.top)+'px';}
+      });
+      card.addEventListener('mouseleave',()=>card.style.transform='');
+    });
+  }
+})();
+
+/* =========================================================
+   THREE.JS STARFIELD + NEBULA (background canvas)
+   Falls back to a 2D canvas starfield if THREE is missing.
+   ========================================================= */
+(function(){
+  "use strict";
+  const reduceMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const canvas=document.getElementById('bg-canvas');
+
+  function startThree(){
+    const scene=new THREE.Scene();
+    const camera=new THREE.PerspectiveCamera(70,innerWidth/innerHeight,1,3000);
+    camera.position.z=600;
+    const renderer=new THREE.WebGLRenderer({canvas,alpha:true,antialias:true});
+    renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+    renderer.setSize(innerWidth,innerHeight);
+
+    // ---- starfield ----
+    const starCount=Math.min(3500,Math.floor(innerWidth*2));
+    const geo=new THREE.BufferGeometry();
+    const pos=new Float32Array(starCount*3),col=new Float32Array(starCount*3);
+    const palette=[[0.96,0.86,0.56],[0.9,0.71,0.3],[0.56,0.43,0.2],[1,0.93,0.72],[0.92,0.92,0.88]];
+    for(let i=0;i<starCount;i++){
+      pos[i*3]=(Math.random()-0.5)*2400;
+      pos[i*3+1]=(Math.random()-0.5)*2400;
+      pos[i*3+2]=(Math.random()-0.5)*2400;
+      const c=Math.random()<0.55?[1,1,1]:palette[(Math.random()*palette.length)|0];
+      col[i*3]=c[0];col[i*3+1]=c[1];col[i*3+2]=c[2];
+    }
+    geo.setAttribute('position',new THREE.BufferAttribute(pos,3));
+    geo.setAttribute('color',new THREE.BufferAttribute(col,3));
+    const mat=new THREE.PointsMaterial({size:2.4,vertexColors:true,transparent:true,opacity:0.9,depthWrite:false,blending:THREE.AdditiveBlending});
+    const stars=new THREE.Points(geo,mat);
+    scene.add(stars);
+
+    // ---- distant nebula points ----
+    const nGeo=new THREE.BufferGeometry();
+    const nCount=800,nPos=new Float32Array(nCount*3),nCol=new Float32Array(nCount*3);
+    for(let i=0;i<nCount;i++){
+      nPos[i*3]=(Math.random()-0.5)*1600;
+      nPos[i*3+1]=(Math.random()-0.5)*1600;
+      nPos[i*3+2]=(Math.random()-0.5)*1600-400;
+      const c=palette[(Math.random()*palette.length)|0];
+      nCol[i*3]=c[0];nCol[i*3+1]=c[1];nCol[i*3+2]=c[2];
+    }
+    nGeo.setAttribute('position',new THREE.BufferAttribute(nPos,3));
+    nGeo.setAttribute('color',new THREE.BufferAttribute(nCol,3));
+    const nMat=new THREE.PointsMaterial({size:26,vertexColors:true,transparent:true,opacity:0.05,depthWrite:false,blending:THREE.AdditiveBlending});
+    const nebula=new THREE.Points(nGeo,nMat);
+    scene.add(nebula);
+
+    // ---- wireframe planet ----
+    const planet=new THREE.Mesh(
+      new THREE.IcosahedronGeometry(120,1),
+      new THREE.MeshBasicMaterial({color:0xe8b64a,wireframe:true,transparent:true,opacity:0.18})
+    );
+    planet.position.set(420,-160,-300);
+    scene.add(planet);
+
+    let tx=0,ty=0;
+    window.addEventListener('mousemove',(e)=>{tx=(e.clientX/innerWidth-0.5);ty=(e.clientY/innerHeight-0.5);},{passive:true});
+    let scrollY=0;
+    window.addEventListener('scroll',()=>{scrollY=window.scrollY;},{passive:true});
+
+    function resize(){camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);}
+    window.addEventListener('resize',resize);
+
+    const clock=new THREE.Clock();
+    function loop(){
+      const t=clock.getElapsedTime();
+      stars.rotation.y=t*0.02;stars.rotation.x=t*0.008;
+      nebula.rotation.y=-t*0.015;
+      planet.rotation.y=t*0.15;planet.rotation.x=t*0.08;
+      camera.position.x+=(tx*140-camera.position.x)*0.04;
+      camera.position.y+=(-ty*140-camera.position.y)*0.04;
+      camera.position.z=600-Math.min(scrollY*0.12,260);
+      camera.lookAt(scene.position);
+      renderer.render(scene,camera);
+      requestAnimationFrame(loop);
+    }
+    loop();
+  }
+
+  // ---- fallback 2D starfield ----
+  function startFallback(){
+    const ctx=canvas.getContext('2d');
+    let w,h,stars;
+    function init(){w=canvas.width=innerWidth;h=canvas.height=innerHeight;stars=Array.from({length:Math.min(400,Math.floor(w/3))},()=>({x:Math.random()*w,y:Math.random()*h,z:Math.random()*w,r:Math.random()*1.4+0.3}));}
+    init();window.addEventListener('resize',init);
+    function loop(){
+      ctx.clearRect(0,0,w,h);
+      for(const s of stars){
+        s.z-=0.6;if(s.z<=0){s.z=w;s.x=Math.random()*w;s.y=Math.random()*h;}
+        const k=128/s.z,px=(s.x-w/2)*k+w/2,py=(s.y-h/2)*k+h/2;
+        ctx.beginPath();ctx.fillStyle='rgba(255,238,205,'+(1-s.z/w)+')';
+        ctx.arc(px,py,s.r*(1-s.z/w)+0.2,0,7);ctx.fill();
+      }
+      requestAnimationFrame(loop);
+    }
+    if(reduceMotion){init();for(const s of stars){ctx.fillStyle='rgba(255,238,205,0.6)';ctx.fillRect(s.x,s.y,s.r,s.r);}return;}
+    loop();
+  }
+
+  function boot(){
+    if(typeof THREE!=='undefined' && !reduceMotion){try{startThree();return;}catch(err){/* fall through */}}
+    startFallback();
+  }
+  window.addEventListener('load',()=>setTimeout(boot,50));
+})();
+</script>
+</body>
+</html>
