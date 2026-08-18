@@ -1,0 +1,14 @@
+# VS Code
+.vscode/
+
+# Temporary files
+*.tmp
+.tmp-edit.py
+
+# Build/tool artifacts
+.freebuff/
+
+# OS generated files
+Thumbs.db
+.DS_Store
+desktop.ini
