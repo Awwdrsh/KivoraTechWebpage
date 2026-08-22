@@ -78,22 +78,22 @@
   ],
   "techStack": ["Kubernetes", "Terraform", "AWS", "Azure", "Go", "Rust", "Python", "TypeScript", "React", "Node.js", "PostgreSQL", "Kafka", "Redis", "GraphQL", "gRPC", "Istio", "Prometheus", "Grafana", "TensorFlow", "PyTorch", "Docker", "Vault", "ArgoCD", "Snowflake", "Elasticsearch", "WebAssembly"],
   "whyChooseUs": [
-    { "title": "Outcome-obsessed", "description": "We measure success by your uptime, velocity and business results, not billable hours." },
-    { "title": "Security by default", "description": "Every platform is hardened, audited and compliance-ready from the very first commit." },
-    { "title": "Scale-proven", "description": "Our systems run billions of requests daily for the world's most demanding workloads." },
-    { "title": "True partnership", "description": "We embed with your teams and transfer knowledge, so you own your future." },
-    { "title": "Relentless speed", "description": "Golden-path automation means ideas reach production in minutes, safely." },
-    { "title": "Global reach", "description": "42 regions, follow-the-sun operations and local expertise wherever you operate." }
+    { "title": "Outcome-obsessed", "description": "We measure success by your uptime, velocity and business results, not billable hours.", "icon": "target.png" },
+    { "title": "Security by default", "description": "Every platform is hardened, audited and compliance-ready from the very first commit.", "icon": "lock.png" },
+    { "title": "Scale-proven", "description": "Our systems run billions of requests daily for the world's most demanding workloads.", "icon": "trending-up.png" },
+    { "title": "True partnership", "description": "We embed with your teams and transfer knowledge, so you own your future.", "icon": "user-heart.png" },
+    { "title": "Relentless speed", "description": "Golden-path automation means ideas reach production in minutes, safely.", "icon": "bolt.png" },
+    { "title": "Global reach", "description": "42 regions, follow-the-sun operations and local expertise wherever you operate.", "icon": "globe.png" }
   ],
   "industries": [
-    { "name": "Finance", "description": "Banking, payments & fintech" },
-    { "name": "Healthcare", "description": "Providers & life sciences" },
-    { "name": "Retail", "description": "Commerce at global scale" },
-    { "name": "Government", "description": "Secure public sector systems" },
-    { "name": "Telecom", "description": "Carrier-grade networks" },
-    { "name": "Energy", "description": "Grid & utility platforms" },
-    { "name": "Education", "description": "Learning infrastructure" },
-    { "name": "Logistics", "description": "Supply chain intelligence" }
+    { "name": "Finance", "description": "Banking, payments & fintech", "icon": "building-bank.png", "size": "lg" },
+    { "name": "Healthcare", "description": "Providers & life sciences", "icon": "building-hospital.png", "size": "md" },
+    { "name": "Retail", "description": "Commerce at global scale", "icon": "shopping-bag.png", "size": "sm" },
+    { "name": "Government", "description": "Secure public sector systems", "icon": "building-castle.png", "size": "md" },
+    { "name": "Telecom", "description": "Carrier-grade networks", "icon": "antenna.png", "size": "lg" },
+    { "name": "Energy", "description": "Grid & utility platforms", "icon": "bolt.png", "size": "sm" },
+    { "name": "Education", "description": "Learning infrastructure", "icon": "certificate.png", "size": "md" },
+    { "name": "Logistics", "description": "Supply chain intelligence", "icon": "truck.png", "size": "lg" }
   ],
   "testimonials": [
     {

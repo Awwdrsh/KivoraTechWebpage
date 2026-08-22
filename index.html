@@ -174,7 +174,44 @@ header.nav.scrolled{background:rgba(10,10,11,.88);backdrop-filter:blur(20px);-we
   -webkit-background-clip:text;background-clip:text;color:transparent}
 .hero-sub{color:var(--silver);max-width:50ch;font-size:clamp(14px,1.3vw,17px);margin-bottom:28px;text-align:justify}
 .hero-cta{display:flex;gap:12px;flex-wrap:wrap}
-.hero-trust{display:flex;flex-wrap:wrap;gap:8px 20px;margin-top:28px}
+
+/* comparison grid */
+.compare{padding:clamp(48px,8vw,96px) clamp(20px,5vw,72px)}
+.compare-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);overflow:hidden}
+.compare-cell{background:var(--bg);padding:16px 20px;font-size:13px;color:var(--muted);display:flex;align-items:center}
+.compare-cell.header{background:var(--tile);font-weight:600;color:var(--text);font-size:12px;letter-spacing:.06em;text-transform:uppercase}
+.compare-cell.kivora{background:rgba(201,154,63,.04);color:var(--text);border-left:2px solid var(--gold)}
+.compare-cell.kivora.header{background:rgba(201,154,63,.08);color:var(--gold)}
+.compare-cell .check{color:#16A34A;margin-right:8px;flex-shrink:0}
+.compare-cell .cross{color:var(--silver-3);margin-right:8px;flex-shrink:0}
+.compare-cell .partial{color:var(--gold-3);margin-right:8px;flex-shrink:0}
+@media(max-width:700px){
+  .compare-grid{grid-template-columns:1.2fr 1fr 1fr 1fr;font-size:11px}
+  .compare-cell{padding:10px 12px}
+}
+@media(max-width:480px){
+  .compare-grid{display:flex;flex-direction:column;gap:0;background:none;border:none}
+  .compare-cell{padding:12px 16px;font-size:13px;border-left:none;border-radius:0;white-space:normal}
+  .compare-cell.header{display:none}
+  /* dimension label: full-width label row */
+  .compare-cell:nth-child(4n+1):not(:first-child){background:var(--tile);font-weight:700;color:var(--text);font-size:13px;letter-spacing:.02em;border-radius:6px 6px 0 0;border-bottom:none;margin-top:16px}
+  .compare-cell:nth-child(4n+1):first-of-type{margin-top:0}
+  /* kivora: highlighted row */
+  .compare-cell.kivora{background:rgba(201,154,63,.06);color:var(--text);border-left:3px solid var(--gold);border-radius:0;font-size:13px;padding:10px 16px}
+  /* competitor rows */
+  .compare-cell:not(.kivora):not(.header):not(:nth-child(4n+1)){background:var(--bg-2);color:var(--muted);border-left:3px solid var(--line);border-radius:0;padding:10px 16px;font-size:12px}
+  /* last cell in group: rounded bottom */
+  .compare-cell:nth-child(4n){border-radius:0 0 6px 6px;margin-bottom:0}
+}
+
+/* logo wall */
+.logo-wall{padding:clamp(32px,5vw,56px) clamp(20px,5vw,72px);border-bottom:1px solid var(--line);overflow:hidden}
+.logo-wall-label{text-align:center;font-family:var(--font-mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--silver-3);margin-bottom:24px}
+.logo-wall-track{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:clamp(20px,3vw,40px)}
+.logo-wall-item{display:flex;align-items:center;justify-content:center;width:clamp(80px,10vw,120px);height:40px;opacity:.35;transition:opacity .3s;filter:grayscale(1) brightness(1.6)}
+.logo-wall-item:hover{opacity:.7}
+.logo-wall-item img{max-width:100%;max-height:100%;object-fit:contain}
+@media(max-width:700px){.logo-wall-item{width:70px;height:30px}}
 .t-item{display:inline-flex;align-items:center;gap:6px;font-size:12px;letter-spacing:.04em;color:var(--silver-2)}
 .t-item svg{color:var(--gold);flex-shrink:0}
 
@@ -232,18 +269,19 @@ header.nav.scrolled{background:rgba(10,10,11,.88);backdrop-filter:blur(20px);-we
 .svc h3{font-size:18px;margin-bottom:8px}.svc p{color:var(--muted);font-size:13px;line-height:1.5;text-align:justify;text-align-last:left}
 
 /* projects */
-.proj{display:flex;flex-direction:column;justify-content:flex-end;min-height:280px;padding:0;overflow:hidden}
-.proj .thumb{position:absolute;inset:0;overflow:hidden}
-.proj .thumb img{width:100%;height:100%;object-fit:cover;transition:transform .6s var(--ease)}
-.proj:hover .thumb img{transform:scale(1.04)}
-.proj .thumb::after{content:"";position:absolute;inset:0;
-  background:linear-gradient(180deg,rgba(10,10,11,0) 30%,rgba(10,10,11,.85) 100%)}
+.proj{display:flex;flex-direction:column;padding:0;overflow:hidden}
+.proj .thumb{position:relative;width:100%;height:280px;overflow:hidden;background:var(--tile);border:1px solid var(--line);border-radius:4px 4px 0 0}
+.proj .thumb svg{width:100%;height:100%;object-fit:cover;display:block}
 .proj .body{position:relative;padding:24px 28px;display:flex;flex-direction:column;z-index:1}
 .proj .tag{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;font-family:var(--font-mono)}
 .proj h3{font-size:clamp(18px,1.8vw,24px);margin:0 0 8px;line-height:1.12}
-.proj .sub{font-style:italic;font-size:14px;color:var(--silver);margin-bottom:10px}
+.proj .sub{font-size:14px;color:var(--silver);margin-bottom:10px}
 .proj .rule{height:1px;width:100%;margin:0 0 12px;background:linear-gradient(90deg,var(--gold),transparent 70%)}
 .proj p{color:var(--silver-2);font-size:13px;line-height:1.6;max-width:50ch;margin:0;text-align:justify}
+
+/* project hover */
+.proj{transition:transform .4s var(--ease),box-shadow .4s var(--ease),border-color .3s}
+.proj:hover{transform:translateY(-3px);box-shadow:0 8px 32px -6px rgba(201,154,63,.2);border-color:var(--gold)}
 
 /* process */
 .proc-step{display:flex;flex-direction:column;gap:6px;min-height:160px}
@@ -390,7 +428,7 @@ footer{position:relative;z-index:2;padding:56px clamp(20px,5vw,72px) 28px;border
   .row2{grid-row:auto}.svc{grid-column:span 3!important}
 }
 @media(max-width:700px){
-  section{padding:clamp(48px,8vw,72px) 16px}
+  section{padding:clamp(48px,8vw,72px) 20px}
   .section-head{margin-bottom:32px}
   .section-title{font-size:clamp(24px,6vw,36px)}
   .eyebrow{font-size:10px;margin-bottom:12px}
@@ -404,7 +442,6 @@ footer{position:relative;z-index:2;padding:56px clamp(20px,5vw,72px) 28px;border
   .hero-sub{font-size:14px;max-width:40ch}
   .hero-cta{flex-direction:column;gap:10px}
   .hero-cta .btn{width:100%;justify-content:center}
-  .hero-trust{gap:6px 14px;flex-wrap:wrap}
   .t-item{font-size:11px}
   /* terminal: full-width, compact 3-col metrics */
   .tile.sp5{width:100%}
@@ -412,7 +449,7 @@ footer{position:relative;z-index:2;padding:56px clamp(20px,5vw,72px) 28px;border
   .tm-value{font-size:clamp(15px,4vw,20px)}
   .terminal-body{padding:14px}
   /* bento: 2-col grid for general use */
-  .bento{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .bento{grid-template-columns:1fr 1fr}
   .sp2,.sp3,.sp4,.sp5,.sp6,.sp7,.sp8,.sp12{grid-column:span 1}
   .row2{grid-row:auto}
   /* services: 2-col */
@@ -420,8 +457,7 @@ footer{position:relative;z-index:2;padding:56px clamp(20px,5vw,72px) 28px;border
   .svc .ic{margin-bottom:10px}
   .svc h3{font-size:14px}.svc p{font-size:12px}
   /* projects: 2-col, smaller cards */
-  .proj{min-height:200px}
-  .proj .body{padding:16px 18px}
+  .proj .thumb{height:220px}
   .proj h3{font-size:16px}.proj .sub{font-size:12px}.proj p{font-size:11px;line-height:1.5}
   /* process: vertical timeline with alternating sides */
   #procWrap{display:flex;flex-direction:column;gap:0}
@@ -432,11 +468,10 @@ footer{position:relative;z-index:2;padding:56px clamp(20px,5vw,72px) 28px;border
   #procWrap .proc-step{min-height:auto}
   #procWrap .proc-step h4{font-size:14px}.proc-step p{font-size:11px}
   /* testimonials: 2-col */
-  #testGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-  .quote{padding:16px}
+  #testGrid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
   .quote p{font-size:12px;line-height:1.5}
   /* timeline: compact vertical */
-  #tlWrap{display:flex;flex-direction:column;gap:0;padding-left:28px;border-left:2px solid var(--gold);margin-left:8px}
+  #tlWrap{display:flex;flex-direction:column;gap:4px;padding-left:28px;border-left:2px solid var(--gold);margin-left:8px}
   #tlWrap .tile{border-left:none!important;margin-left:0!important;padding:12px 14px;position:relative;background:rgba(201,154,63,.03);border-radius:4px}
   #tlWrap .tile:nth-child(even){background:rgba(255,255,255,.02)}
   #tlWrap .tile::before{content:"";position:absolute;left:-33px;top:14px;width:10px;height:10px;border-radius:50%;background:var(--gold);border:2px solid var(--bg);z-index:1}
@@ -469,8 +504,9 @@ footer{position:relative;z-index:2;padding:56px clamp(20px,5vw,72px) 28px;border
   .foot-col a{font-size:12px;margin-bottom:8px}
   .foot-bottom{flex-direction:column;gap:8px;text-align:center;padding-top:18px}
 }
+
 @media(max-width:480px){
-  .bento{gap:8px;grid-template-columns:1fr}
+  .bento{gap:12px;grid-template-columns:1fr}
   .sp2,.sp3,.sp4,.sp5,.sp6,.sp7,.sp8,.sp12{grid-column:span 1}
   /* hero: tighter spacing */
   .hero{padding-top:80px}
@@ -485,11 +521,9 @@ footer{position:relative;z-index:2;padding:56px clamp(20px,5vw,72px) 28px;border
   #procWrap .tile{margin-left:16px;border-left:2px solid var(--gold);margin-bottom:8px}
   #procWrap .tile::before{width:12px;height:12px;left:-8px}
   /* projects: single col */
-  .proj{min-height:180px}
-  .proj .body{padding:14px 16px}
+  .proj .thumb{height:180px}
   /* testimonials: single col */
   #testGrid{grid-template-columns:1fr}
-  .quote{padding:14px}
   .quote p{font-size:11px}
   /* timeline: even more compact */
   #tlWrap{padding-left:24px;margin-left:4px}
@@ -497,8 +531,6 @@ footer{position:relative;z-index:2;padding:56px clamp(20px,5vw,72px) 28px;border
   #tlWrap .tl-head .yr{font-size:10px}
   #tlWrap .tl-head h4{font-size:13px}
   #tlWrap .tl-item p{font-size:11px}
-  /* bubbles: 2-col */
-  .bubble,.bubble-stage.static .bubble{width:calc(50% - 4px)!important;height:auto!important;padding:12px;aspect-ratio:1}
   .bubble h3{font-size:10px}.bubble p{font-size:9px}
   /* masonry: 2-col */
   .masonry{column-count:2;column-gap:8px}
@@ -537,6 +569,28 @@ footer{position:relative;z-index:2;padding:56px clamp(20px,5vw,72px) 28px;border
 .spatial-perspective{perspective:1200px}
 .parallax{transition:transform .15s ease-out}
 
+/* hero entrance animation */
+.hero-entrance .hero-logo-link{opacity:0;transform:translateY(30px) scale(.95);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.hero-entrance .hero h1{opacity:0;transform:translateY(40px);transition:opacity .9s var(--ease) .15s,transform .9s var(--ease) .15s}
+.hero-entrance .hero-sub{opacity:0;transform:translateY(30px);transition:opacity .8s var(--ease) .3s,transform .8s var(--ease) .3s}
+.hero-entrance .hero-cta{opacity:0;transform:translateY(25px);transition:opacity .7s var(--ease) .45s,transform .7s var(--ease) .45s}
+
+.hero-entrance .tile.sp5{opacity:0;transform:translateX(60px) scale(.96);transition:opacity .9s var(--ease) .3s,transform .9s var(--ease) .3s}
+.hero-entrance.in .hero-logo-link,.hero-entrance.in .hero h1,.hero-entrance.in .hero-sub,.hero-entrance.in .hero-cta,.hero-entrance.in .tile.sp5{opacity:1;transform:none}
+
+/* tech marquee */
+.marquee{overflow:hidden;position:relative;padding:20px 0}
+.marquee::before,.marquee::after{content:"";position:absolute;top:0;bottom:0;width:100px;z-index:2;pointer-events:none}
+.marquee::before{left:0;background:linear-gradient(90deg,var(--bg),transparent)}
+.marquee::after{right:0;background:linear-gradient(270deg,var(--bg),transparent)}
+.marquee-track{display:flex;gap:12px;width:max-content;animation:marqueeScroll 40s linear infinite}
+.marquee:hover .marquee-track{animation-play-state:paused}
+.marquee-item{display:inline-flex;align-items:center;gap:10px;background:var(--tile);border:1px solid var(--line);padding:12px 20px;white-space:nowrap;transition:border-color .3s,transform .3s var(--ease);flex-shrink:0}
+.marquee-item:hover{border-color:var(--gold);transform:translateY(-2px)}
+.marquee-item img{width:22px;height:22px;flex-shrink:0}
+.marquee-item span{font-size:13px;font-weight:500}
+@keyframes marqueeScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
 /* reduced motion */
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
@@ -544,6 +598,8 @@ footer{position:relative;z-index:2;padding:56px clamp(20px,5vw,72px) 28px;border
   .tile:hover{transform:none!important;box-shadow:none!important}
   .tilt:hover{transform:none!important}
   .parallax{transition:none!important}
+  .hero-entrance .hero-logo-link,.hero-entrance .hero h1,.hero-entrance .hero-sub,.hero-entrance .hero-cta,.hero-entrance .tile.sp5{opacity:1;transform:none}
+  .marquee-track{animation:none}
 }
 </style>
 </head>
@@ -574,16 +630,16 @@ footer{position:relative;z-index:2;padding:56px clamp(20px,5vw,72px) 28px;border
 
 <main>
 <!-- HERO -->
-<section class="hero" id="hero">
+<section class="hero hero-entrance" id="hero">
   <div class="bento spatial-perspective">
     <div class="tile sp7 row2 hero-main parallax" data-depth="0.02">
       <a href="#hero" class="hero-logo-link" aria-label="Kivora Tech - back to top">
         <img class="hero-logo" src="logo.jpeg" alt="Kivora Tech logo" width="800" height="435" fetchpriority="high" />
       </a>
       <h1>Stay online. Stay secure. Stay ahead.</h1>
-      <p class="hero-sub">Cloud, security and AI platforms for 500+ enterprises. 99.99% uptime SLA, SOC 2 Type II certified, 24/7 global SRE.</p>
+      <p class="hero-sub">Cloud, security and AI platforms for 500+ enterprises. SOC 2 Type II certified, 24/7 global SRE.</p>
       <div class="hero-cta">
-        <a href="#contact" class="btn btn-primary">Book a free review <span>&rarr;</span></a>
+        <a href="#contact" class="btn btn-primary">Get in touch <span>&rarr;</span></a>
         <a href="#projects" class="btn btn-ghost">See our results</a>
       </div>
     </div>
@@ -615,11 +671,47 @@ footer{position:relative;z-index:2;padding:56px clamp(20px,5vw,72px) 28px;border
       </div>
     </div>
   </div>
-  <div class="hero-trust">
+</section>
+
+<!-- TRUST STRIP -->
+<section class="trust-strip" style="padding:24px clamp(20px,5vw,72px);border-bottom:1px solid var(--line)">
+  <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:8px 32px">
     <span class="t-item"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>SOC 2 Type II</span>
     <span class="t-item"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>HIPAA &amp; PCI-DSS ready</span>
     <span class="t-item"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>24/7 global SRE</span>
     <span class="t-item"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>99.99% uptime SLA</span>
+  </div>
+</section>
+
+<!-- LOGO WALL -->
+<section class="logo-wall" aria-label="Trusted by leading enterprises">
+  <div class="logo-wall-label">Trusted by engineering teams at</div>
+  <div class="logo-wall-track">
+    <div class="logo-wall-item"><img src="https://cdn.simpleicons.org/docker/ffffff" alt="Docker" width="120" height="40" loading="lazy" /></div>
+    <div class="logo-wall-item"><img src="https://cdn.simpleicons.org/kubernetes/ffffff" alt="Kubernetes" width="120" height="40" loading="lazy" /></div>
+    <div class="logo-wall-item"><img src="https://cdn.simpleicons.org/googlecloud/ffffff" alt="Google Cloud" width="120" height="40" loading="lazy" /></div>
+    <div class="logo-wall-item"><img src="https://cdn.simpleicons.org/stripe/ffffff" alt="Stripe" width="120" height="40" loading="lazy" /></div>
+    <div class="logo-wall-item"><img src="https://cdn.simpleicons.org/shopify/ffffff" alt="Shopify" width="120" height="40" loading="lazy" /></div>
+    <div class="logo-wall-item"><img src="https://cdn.simpleicons.org/netflix/ffffff" alt="Netflix" width="120" height="40" loading="lazy" /></div>
+    <div class="logo-wall-item"><img src="https://cdn.simpleicons.org/cloudflare/ffffff" alt="Cloudflare" width="120" height="40" loading="lazy" /></div>
+    <div class="logo-wall-item"><img src="https://cdn.simpleicons.org/gitlab/ffffff" alt="GitLab" width="120" height="40" loading="lazy" /></div>
+    <div class="logo-wall-item"><img src="https://cdn.simpleicons.org/digitalocean/ffffff" alt="DigitalOcean" width="120" height="40" loading="lazy" /></div>
+    <div class="logo-wall-item"><img src="https://cdn.simpleicons.org/vercel/ffffff" alt="Vercel" width="120" height="40" loading="lazy" /></div>
+  </div>
+</section>
+
+<!-- PROOF -->
+<section id="proof">
+  <div class="center section-head" data-reveal>
+    
+    <h2 class="section-title">Trusted by <span class="grad">500+ enterprises</span></h2>
+    <p class="section-sub">Real numbers from systems in production right now. No vanity metrics, no hand-waving.</p>
+  </div>
+  <div class="bento" data-stagger>
+    <div class="tile sp3 mini-stat reveal"><div class="num" id="proofReq">15B+</div><div class="lbl">API requests daily</div></div>
+    <div class="tile sp3 mini-stat reveal"><div class="num">42</div><div class="lbl">Regions worldwide</div></div>
+    <div class="tile sp3 mini-stat reveal"><div class="num">< 50ms</div><div class="lbl">P99 latency</div></div>
+    <div class="tile sp3 mini-stat reveal"><div class="num">99.997%</div><div class="lbl">Uptime (90 days)</div></div>
   </div>
 </section>
 
@@ -631,20 +723,20 @@ footer{position:relative;z-index:2;padding:56px clamp(20px,5vw,72px) 28px;border
     <p class="section-sub">Metrics from systems we have shipped - uptime, latency and delivery gains you can build on.</p>
   </div>
   <div class="bento spatial-perspective" data-stagger>
-    <a href="#contact" class="tile proj sp7 row2 reveal tilt">
-      <div class="thumb"><img src="https://picsum.photos/seed/kivora-fintech/900/600" alt="" width="900" height="600" loading="lazy" /></div>
+    <a href="#contact" class="tile proj sp6 reveal tilt">
+      <div class="thumb"><svg viewBox="0 0 900 600" width="900" height="600" fill="none" xmlns="http://www.w3.org/2000/svg" style="background:#0d0d0f" role="img" aria-label="Multi-region payment network topology with 3 active-active regions, 18ms latency, and throughput metrics"><defs><linearGradient id="gf1" x1="0" y1="0" x2="900" y2="600"><stop offset="0%" stop-color="#c99a3f" stop-opacity=".12"/><stop offset="100%" stop-color="#0a0a0b" stop-opacity=".9"/></linearGradient><filter id="glow1"><feGaussianBlur stdDeviation="3" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><rect width="900" height="600" fill="url(#gf1)"/><g font-family="monospace" font-size="10" fill="#c99a3f" opacity=".5"><text x="150" y="50">US-EAST</text><text x="420" y="50">EU-WEST</text><text x="680" y="50">APAC-SOUTH</text></g><rect x="50" y="60" width="250" height="200" rx="6" stroke="#c99a3f" stroke-width=".5" stroke-dasharray="4 4" opacity=".2"/><rect x="320" y="60" width="250" height="200" rx="6" stroke="#c99a3f" stroke-width=".5" stroke-dasharray="4 4" opacity=".2"/><rect x="600" y="60" width="250" height="200" rx="6" stroke="#c99a3f" stroke-width=".5" stroke-dasharray="4 4" opacity=".2"/><g stroke="#c99a3f" stroke-width=".6" opacity=".15"><line x1="80" y1="100" x2="170" y2="140"/><line x1="170" y1="140" x2="260" y2="110"/><line x1="170" y1="140" x2="130" y2="220"/><line x1="260" y1="110" x2="260" y2="220"/><line x1="130" y1="220" x2="260" y2="220"/><line x1="80" y1="100" x2="130" y2="220"/><line x1="350" y1="100" x2="445" y2="150"/><line x1="445" y1="150" x2="540" y2="120"/><line x1="445" y1="150" x2="400" y2="220"/><line x1="540" y1="120" x2="540" y2="220"/><line x1="400" y1="220" x2="540" y2="220"/><line x1="350" y1="100" x2="400" y2="220"/><line x1="630" y1="100" x2="725" y2="150"/><line x1="725" y1="150" x2="820" y2="120"/><line x1="725" y1="150" x2="680" y2="220"/><line x1="820" y1="120" x2="820" y2="220"/><line x1="680" y1="220" x2="820" y2="220"/><line x1="630" y1="100" x2="680" y2="220"/></g><g filter="url(#glow1)"><circle class="svg-node" cx="80" cy="100" r="5" fill="#c99a3f"/><circle class="svg-node" cx="170" cy="140" r="5" fill="#c99a3f"/><circle class="svg-node" cx="260" cy="110" r="5" fill="#c99a3f"/><circle class="svg-node" cx="130" cy="220" r="5" fill="#c99a3f"/><circle class="svg-node" cx="260" cy="220" r="5" fill="#c99a3f"/><circle class="svg-node" cx="350" cy="100" r="5" fill="#c99a3f"/><circle class="svg-node" cx="445" cy="150" r="5" fill="#c99a3f"/><circle class="svg-node" cx="540" cy="120" r="5" fill="#c99a3f"/><circle class="svg-node" cx="400" cy="220" r="5" fill="#c99a3f"/><circle class="svg-node" cx="540" cy="220" r="5" fill="#c99a3f"/><circle class="svg-node" cx="630" cy="100" r="5" fill="#c99a3f"/><circle class="svg-node" cx="725" cy="150" r="5" fill="#c99a3f"/><circle class="svg-node" cx="820" cy="120" r="5" fill="#c99a3f"/><circle class="svg-node" cx="680" cy="220" r="5" fill="#c99a3f"/><circle class="svg-node" cx="820" cy="220" r="5" fill="#c99a3f"/></g><g stroke="#c99a3f" stroke-width="1" opacity=".35" filter="url(#glow1)"><line class="svg-line-glow" x1="260" y1="110" x2="350" y2="100"/><line class="svg-line-glow" x1="260" y1="220" x2="400" y2="220"/><line class="svg-line-glow" x1="540" y1="120" x2="630" y2="100"/><line class="svg-line-glow" x1="540" y1="220" x2="680" y2="220"/></g><g font-family="monospace" font-size="9" fill="#c99a3f" opacity=".35"><text x="290" y="95">18ms</text><text x="305" y="235">12ms</text><text x="575" y="95">22ms</text><text x="595" y="235">15ms</text></g><line x1="40" y1="310" x2="860" y2="310" stroke="#c99a3f" stroke-width=".5" opacity=".15"/><g font-family="monospace" font-size="9" fill="#c99a3f" opacity=".4"><text x="50" y="340">THROUGHPUT (txn/s)</text><text x="50" y="385">US-EAST</text><text x="50" y="410">EU-WEST</text><text x="50" y="435">APAC-SOUTH</text><text x="50" y="460">TOTAL</text></g><g fill="#c99a3f" opacity=".2"><rect x="180" y="372" width="320" height="10" rx="2"/><rect x="180" y="397" width="240" height="10" rx="2"/><rect x="180" y="422" width="180" height="10" rx="2"/><rect x="180" y="447" width="520" height="12" rx="2"/></g><g fill="#c99a3f" opacity=".5"><rect class="svg-bar" x="180" y="372" width="320" height="10" rx="2"/><rect class="svg-bar" x="180" y="397" width="240" height="10" rx="2"/><rect class="svg-bar" x="180" y="422" width="180" height="10" rx="2"/><rect class="svg-bar" x="180" y="447" width="520" height="12" rx="2"/></g><g font-family="monospace" font-size="9" fill="#c99a3f" opacity=".5"><text x="510" y="381">42,180</text><text x="430" y="406">31,640</text><text x="370" y="431">21,100</text><text x="710" y="457">94,920 txn/s</text></g><g font-family="monospace" font-size="10" fill="#c99a3f" opacity=".4"><text x="680" y="340">SLA: 99.99%</text><text x="680" y="360">AVG LATENCY: 18ms</text><text x="680" y="380">ACTIVE-ACTIVE</text><circle cx="670" cy="376" r="3" fill="#16A34A"/></g></svg></div>
       <div class="body"><span class="tag">Cloud / Fintech</span><h3>Orbital Payments Grid</h3><p class="sub">Payments that clear in milliseconds, around the clock.</p><span class="rule" aria-hidden="true"></span><p>Re-platformed a national payments network onto a multi-region active-active cloud, cutting transaction latency by 63% while achieving five-nines availability.</p></div>
     </a>
-    <a href="#contact" class="tile proj sp5 reveal tilt">
-      <div class="thumb"><img src="https://picsum.photos/seed/kivora-medical/900/600" alt="" width="900" height="600" loading="lazy" /></div>
+    <a href="#contact" class="tile proj sp6 reveal tilt">
+      <div class="thumb"><svg viewBox="0 0 900 600" width="900" height="600" fill="none" xmlns="http://www.w3.org/2000/svg" style="background:#0d0d0f" role="img" aria-label="AI inference pipeline processing 4 million medical images monthly with edge deployment and HIPAA security"><defs><linearGradient id="gf2" x1="0" y1="0" x2="900" y2="600"><stop offset="0%" stop-color="#16A34A" stop-opacity=".1"/><stop offset="100%" stop-color="#0a0a0b" stop-opacity=".9"/></linearGradient><filter id="glow2"><feGaussianBlur stdDeviation="2.5" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><rect width="900" height="600" fill="url(#gf2)"/><rect x="30" y="40" width="840" height="260" rx="8" stroke="#16A34A" stroke-width=".5" stroke-dasharray="6 3" opacity=".15"/><text x="50" y="32" font-family="monospace" font-size="10" fill="#16A34A" opacity=".3">HIPAA BOUNDARY</text><g font-family="monospace" font-size="10" fill="#16A34A" opacity=".45"><text x="60" y="75">INPUT</text><text x="230" y="75">PREPROCESS</text><text x="420" y="75">INFERENCE</text><text x="610" y="75">POSTPROCESS</text><text x="780" y="75">OUTPUT</text></g><rect x="40" y="90" width="120" height="80" rx="4" stroke="#16A34A" stroke-width=".5" opacity=".2"/><g opacity=".25"><rect x="55" y="105" width="30" height="22" rx="2" stroke="#16A34A"/><rect x="95" y="105" width="30" height="22" rx="2" stroke="#16A34A"/><rect x="55" y="135" width="30" height="22" rx="2" stroke="#16A34A"/><rect x="95" y="135" width="30" height="22" rx="2" stroke="#16A34A"/></g><text x="100" y="185" text-anchor="middle" font-family="monospace" font-size="8" fill="#16A34A" opacity=".35">DICOM</text><rect x="210" y="90" width="140" height="80" rx="4" stroke="#16A34A" stroke-width=".5" opacity=".2"/><g opacity=".3"><rect x="225" y="105" width="110" height="8" rx="2" fill="#16A34A" fill-opacity=".15"/><rect x="225" y="120" width="85" height="8" rx="2" fill="#16A34A" fill-opacity=".1"/><rect x="225" y="135" width="95" height="8" rx="2" fill="#16A34A" fill-opacity=".12"/><rect x="225" y="150" width="70" height="8" rx="2" fill="#16A34A" fill-opacity=".08"/></g><text x="280" y="185" text-anchor="middle" font-family="monospace" font-size="8" fill="#16A34A" opacity=".35">NORMALIZE</text><rect x="400" y="90" width="150" height="80" rx="4" stroke="#16A34A" stroke-width="1" opacity=".3"/><g filter="url(#glow2)"><circle class="svg-node-tiny" cx="430" cy="115" r="4" fill="#16A34A"/><circle class="svg-node-tiny" cx="475" cy="115" r="4" fill="#16A34A"/><circle class="svg-node-tiny" cx="520" cy="115" r="4" fill="#16A34A"/><circle class="svg-node-tiny" cx="430" cy="145" r="4" fill="#16A34A"/><circle class="svg-node-tiny" cx="475" cy="145" r="4" fill="#16A34A"/><circle class="svg-node-tiny" cx="520" cy="145" r="4" fill="#16A34A"/></g><g stroke="#16A34A" stroke-width=".4" opacity=".2"><line x1="430" y1="115" x2="475" y2="115"/><line x1="475" y1="115" x2="520" y2="115"/><line x1="430" y1="145" x2="475" y2="145"/><line x1="475" y1="145" x2="520" y2="145"/><line x1="430" y1="115" x2="430" y2="145"/><line x1="475" y1="115" x2="475" y2="145"/><line x1="520" y1="115" x2="520" y2="145"/></g><text x="475" y="185" text-anchor="middle" font-family="monospace" font-size="8" fill="#16A34A" opacity=".35">MODEL v3.2</text><rect x="600" y="90" width="120" height="80" rx="4" stroke="#16A34A" stroke-width=".5" opacity=".2"/><g opacity=".3"><rect x="615" y="108" width="90" height="6" rx="2" fill="#16A34A" fill-opacity=".2"/><rect x="615" y="120" width="72" height="6" rx="2" fill="#16A34A" fill-opacity=".15"/><rect x="615" y="132" width="84" height="6" rx="2" fill="#16A34A" fill-opacity=".18"/></g><text x="660" y="185" text-anchor="middle" font-family="monospace" font-size="8" fill="#16A34A" opacity=".35">SCORE</text><rect x="770" y="90" width="90" height="80" rx="4" stroke="#16A34A" stroke-width=".5" opacity=".2"/><text x="815" y="125" text-anchor="middle" font-family="monospace" font-size="16" fill="#16A34A" opacity=".5">97%</text><text x="815" y="142" text-anchor="middle" font-family="monospace" font-size="8" fill="#16A34A" opacity=".3">ACCURACY</text><text x="815" y="185" text-anchor="middle" font-family="monospace" font-size="8" fill="#16A34A" opacity=".35">REPORT</text><g stroke="#16A34A" stroke-width=".8" opacity=".3" filter="url(#glow2)"><line class="svg-line" x1="160" y1="130" x2="210" y2="130"/><line class="svg-line" x1="350" y1="130" x2="400" y2="130"/><line class="svg-line" x1="550" y1="130" x2="600" y2="130"/><line class="svg-line" x1="720" y1="130" x2="770" y2="130"/></g><g font-family="monospace" font-size="8" fill="#16A34A" opacity=".25"><text x="175" y="122">4M img/mo</text><text x="360" y="122">&lt;200ms</text><text x="560" y="122">GPU</text><text x="728" y="122">DICOM</text></g><line x1="30" y1="330" x2="870" y2="330" stroke="#16A34A" stroke-width=".5" opacity=".12"/><text x="50" y="360" font-family="monospace" font-size="10" fill="#16A34A" opacity=".4">EDGE DEPLOYMENT</text><g><rect x="50" y="375" width="140" height="60" rx="4" stroke="#16A34A" stroke-width=".5" opacity=".2"/><text x="120" y="398" text-anchor="middle" font-family="monospace" font-size="9" fill="#16A34A" opacity=".4">HOSPITAL A</text><text x="120" y="415" text-anchor="middle" font-family="monospace" font-size="8" fill="#16A34A" opacity=".3">ON-PREM GPU</text><circle class="svg-node-tiny" cx="120" cy="425" r="3" fill="#16A34A"/></g><g><rect x="220" y="375" width="140" height="60" rx="4" stroke="#16A34A" stroke-width=".5" opacity=".2"/><text x="290" y="398" text-anchor="middle" font-family="monospace" font-size="9" fill="#16A34A" opacity=".4">HOSPITAL B</text><text x="290" y="415" text-anchor="middle" font-family="monospace" font-size="8" fill="#16A34A" opacity=".3">CLOUD EDGE</text><circle class="svg-node-tiny" cx="290" cy="425" r="3" fill="#16A34A"/></g><g><rect x="390" y="375" width="140" height="60" rx="4" stroke="#16A34A" stroke-width=".5" opacity=".2"/><text x="460" y="398" text-anchor="middle" font-family="monospace" font-size="9" fill="#16A34A" opacity=".4">HOSPITAL C</text><text x="460" y="415" text-anchor="middle" font-family="monospace" font-size="8" fill="#16A34A" opacity=".3">MOBILE UNIT</text><circle class="svg-node-tiny" cx="460" cy="425" r="3" fill="#16A34A"/></g><g><rect x="560" y="375" width="140" height="60" rx="4" stroke="#16A34A" stroke-width=".5" opacity=".2"/><text x="630" y="398" text-anchor="middle" font-family="monospace" font-size="9" fill="#16A34A" opacity=".4">CLINIC D</text><text x="630" y="415" text-anchor="middle" font-family="monospace" font-size="8" fill="#16A34A" opacity=".3">ARM NEON</text><circle class="svg-node-tiny" cx="630" cy="425" r="3" fill="#16A34A"/></g><g stroke="#16A34A" stroke-width=".5" opacity=".15"><line x1="190" y1="405" x2="220" y2="405"/><line x1="360" y1="405" x2="390" y2="405"/><line x1="530" y1="405" x2="560" y2="405"/></g><g font-family="monospace" font-size="10" fill="#16A34A" opacity=".4"><text x="750" y="375">LATENCY</text><text x="750" y="395" font-size="14" font-weight="bold" opacity=".6">0.8s</text><text x="750" y="415" font-size="9">per scan</text><text x="750" y="440">HIPAA</text><circle cx="740" cy="436" r="3" fill="#16A34A"/></g><text x="450" y="480" text-anchor="middle" font-family="monospace" font-size="11" fill="#16A34A" opacity=".3">DISTRIBUTED INFERENCE / 4M SCANS / 42 EDGE NODES / SUB-SECOND RESULTS</text></svg></div>
       <div class="body"><span class="tag">AI / Healthcare</span><h3>Nova Diagnostics Engine</h3><p class="sub">Every scan read in seconds, at the bedside, not the data center.</p><span class="rule" aria-hidden="true"></span><p>An AI inference platform processing 4M medical images monthly, deployed at the edge with HIPAA-grade security and sub-second results.</p></div>
     </a>
-    <a href="#contact" class="tile proj sp5 reveal tilt">
-      <div class="thumb"><img src="https://picsum.photos/seed/kivora-security/900/600" alt="" width="900" height="600" loading="lazy" /></div>
+    <a href="#contact" class="tile proj sp6 reveal tilt">
+      <div class="thumb"><svg viewBox="0 0 900 600" width="900" height="600" fill="none" xmlns="http://www.w3.org/2000/svg" style="background:#0d0d0f" role="img" aria-label="Zero-trust security mesh with policy engine, 200k endpoints, threat detection, and compliance zones"><defs><linearGradient id="gf3" x1="0" y1="0" x2="900" y2="600"><stop offset="0%" stop-color="#DC2626" stop-opacity=".08"/><stop offset="100%" stop-color="#0a0a0b" stop-opacity=".9"/></linearGradient><filter id="glow3"><feGaussianBlur stdDeviation="2" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><rect width="900" height="600" fill="url(#gf3)"/><g font-family="monospace" font-size="9" fill="#DC2626" opacity=".3"><text x="450" y="35" text-anchor="middle">IDENTITY ZONE</text><text x="450" y="55" text-anchor="middle" font-size="8">MFA + CERTIFICATE AUTH</text></g><circle class="svg-ring" cx="450" cy="290" r="100" stroke="#DC2626" stroke-width="1" opacity=".25"/><circle class="svg-ring" cx="450" cy="290" r="160" stroke="#DC2626" stroke-width=".7" stroke-dasharray="4 4" opacity=".15"/><circle class="svg-ring" cx="450" cy="290" r="220" stroke="#DC2626" stroke-width=".5" stroke-dasharray="2 6" opacity=".1"/><circle class="svg-ring" cx="450" cy="290" r="270" stroke="#DC2626" stroke-width=".3" stroke-dasharray="1 4" opacity=".08"/><g font-family="monospace" font-size="7" fill="#DC2626" opacity=".2"><text x="450" y="188">POLICY</text><text x="450" y="198">ENGINE</text><text x="450" y="385">ENDPOINT</text><text x="450" y="395">MESH</text><text x="270" y="290">PERIMETER</text><text x="605" y="290">NETWORK</text></g><circle cx="450" cy="290" r="14" fill="none" stroke="#DC2626" stroke-width="1.5" opacity=".5" filter="url(#glow3)"/><circle class="svg-node-sm" cx="450" cy="290" r="5" fill="#DC2626" opacity=".6"/><g opacity=".35"><circle class="svg-node-sm" cx="380" cy="220" r="3" fill="#DC2626"/><circle class="svg-node-sm" cx="520" cy="220" r="3" fill="#DC2626"/><circle class="svg-node-sm" cx="350" cy="290" r="3" fill="#DC2626"/><circle class="svg-node-sm" cx="550" cy="290" r="3" fill="#DC2626"/><circle class="svg-node-sm" cx="380" cy="360" r="3" fill="#DC2626"/><circle class="svg-node-sm" cx="520" cy="360" r="3" fill="#DC2626"/><circle class="svg-node-sm" cx="320" cy="250" r="3" fill="#DC2626"/><circle class="svg-node-sm" cx="580" cy="250" r="3" fill="#DC2626"/><circle class="svg-node-sm" cx="320" cy="330" r="3" fill="#DC2626"/><circle class="svg-node-sm" cx="580" cy="330" r="3" fill="#DC2626"/><circle class="svg-node-sm" cx="280" cy="290" r="3" fill="#DC2626"/><circle class="svg-node-sm" cx="620" cy="290" r="3" fill="#DC2626"/></g><g stroke="#DC2626" stroke-width=".4" opacity=".15"><line x1="380" y1="220" x2="450" y2="290"/><line x1="520" y1="220" x2="450" y2="290"/><line x1="350" y1="290" x2="450" y2="290"/><line x1="550" y1="290" x2="450" y2="290"/><line x1="380" y1="360" x2="450" y2="290"/><line x1="520" y1="360" x2="450" y2="290"/><line x1="320" y1="250" x2="450" y2="290"/><line x1="580" y1="250" x2="450" y2="290"/><line x1="320" y1="330" x2="450" y2="290"/><line x1="580" y1="330" x2="450" y2="290"/><line x1="280" y1="290" x2="450" y2="290"/><line x1="620" y1="290" x2="450" y2="290"/></g><g opacity=".25"><circle cx="120" cy="150" r="2" fill="#DC2626"/><circle cx="180" cy="120" r="2" fill="#DC2626"/><circle cx="140" cy="200" r="2" fill="#DC2626"/><circle cx="100" cy="250" r="2" fill="#DC2626"/><circle cx="160" cy="300" r="2" fill="#DC2626"/><circle cx="130" cy="350" r="2" fill="#DC2626"/><circle cx="110" cy="400" r="2" fill="#DC2626"/><circle cx="170" cy="420" r="2" fill="#DC2626"/><circle cx="150" cy="460" r="2" fill="#DC2626"/><circle cx="750" cy="140" r="2" fill="#DC2626"/><circle cx="800" cy="180" r="2" fill="#DC2626"/><circle cx="770" cy="230" r="2" fill="#DC2626"/><circle cx="820" cy="270" r="2" fill="#DC2626"/><circle cx="780" cy="320" r="2" fill="#DC2626"/><circle cx="810" cy="370" r="2" fill="#DC2626"/><circle cx="760" cy="410" r="2" fill="#DC2626"/><circle cx="790" cy="450" r="2" fill="#DC2626"/><circle cx="830" cy="480" r="2" fill="#DC2626"/><circle cx="200" cy="520" r="2" fill="#DC2626"/><circle cx="300" cy="500" r="2" fill="#DC2626"/><circle cx="400" cy="530" r="2" fill="#DC2626"/><circle cx="500" cy="510" r="2" fill="#DC2626"/><circle cx="600" cy="540" r="2" fill="#DC2626"/><circle cx="700" cy="520" r="2" fill="#DC2626"/><circle cx="250" cy="80" r="2" fill="#DC2626"/><circle cx="350" cy="70" r="2" fill="#DC2626"/><circle cx="550" cy="75" r="2" fill="#DC2626"/><circle cx="650" cy="85" r="2" fill="#DC2626"/></g><g font-family="monospace" font-size="9" fill="#DC2626" opacity=".35"><text x="40" y="480">200K ENDPOINTS</text><text x="40" y="495">ACTIVE</text><circle cx="30" cy="491" r="3" fill="#16A34A"/><text x="750" y="80">THREATS BLOCKED</text><text x="750" y="95" font-size="14" font-weight="bold" opacity=".6">14,200</text><text x="750" y="110">this month</text><text x="40" y="80">COMPLIANCE</text><text x="40" y="95">SOC2  HIPAA  PCI</text><circle cx="30" cy="91" r="3" fill="#16A34A"/></g><g font-family="monospace" font-size="8" fill="#DC2626" opacity=".2"><text x="100" y="170">MFA</text><text x="780" y="200">MTLS</text><text x="100" y="430">JWT</text><text x="780" y="420">RBAC</text></g></svg></div>
       <div class="body"><span class="tag">Security / Government</span><h3>Aegis Zero-Trust Fabric</h3><p class="sub">Trust nobody, verify everything, automatically.</p><span class="rule" aria-hidden="true"></span><p>A nationwide zero-trust security mesh protecting 200k endpoints, with automated threat containment and continuous compliance.</p></div>
     </a>
-    <a href="#contact" class="tile proj sp12 reveal tilt" style="flex-direction:row;align-items:flex-end;gap:24px;min-height:0">
-      <div class="thumb" style="position:relative;width:40%;min-height:200px"><img src="https://picsum.photos/seed/kivora-devops/700/400" alt="" width="700" height="400" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover" /></div>
+    <a href="#contact" class="tile proj sp6 reveal tilt">
+      <div class="thumb"><svg viewBox="0 0 400 300" role="img" aria-label="Self-service CI/CD pipeline with 90 plus engineering teams, Kubernetes deployment, and metrics dashboard" width="400" height="300" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;background:#0d0d0f"><defs><linearGradient id="gf4" x1="0" y1="0" x2="400" y2="300"><stop offset="0%" stop-color="#c99a3f" stop-opacity=".1"/><stop offset="100%" stop-color="#0a0a0b" stop-opacity=".8"/></linearGradient><filter id="glow4"><feGaussianBlur stdDeviation="1.5" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><rect width="400" height="300" fill="url(#gf4)"/><g font-family="monospace" font-size="7" fill="#c99a3f" opacity=".4"><text x="30" y="18">GIT</text><text x="90" y="18">BUILD</text><text x="165" y="18">TEST</text><text x="235" y="18">STAGE</text><text x="310" y="18">DEPLOY</text></g><g stroke="#c99a3f" stroke-width=".5" opacity=".2"><rect class="svg-box" x="25" y="24" width="45" height="28" rx="3"/><rect class="svg-box" x="80" y="24" width="60" height="28" rx="3"/><rect class="svg-box" x="155" y="24" width="55" height="28" rx="3"/><rect class="svg-box" x="225" y="24" width="55" height="28" rx="3"/><rect class="svg-box" x="300" y="24" width="70" height="28" rx="3"/></g><g stroke="#c99a3f" stroke-width=".6" opacity=".3" filter="url(#glow4)"><line class="svg-line" x1="70" y1="38" x2="80" y2="38"/><line class="svg-line" x1="140" y1="38" x2="155" y2="38"/><line class="svg-line" x1="210" y1="38" x2="225" y2="38"/><line class="svg-line" x1="280" y1="38" x2="300" y2="38"/></g><line x1="20" y1="65" x2="380" y2="65" stroke="#c99a3f" stroke-width=".3" opacity=".15"/><g font-family="monospace" font-size="7" fill="#c99a3f" opacity=".3"><text x="20" y="80">PARALLEL PIPELINES</text></g><g opacity=".3"><line class="svg-line" x1="40" y1="90" x2="40" y2="140" stroke="#c99a3f" stroke-width=".4"/><line class="svg-line" x1="70" y1="90" x2="70" y2="140" stroke="#c99a3f" stroke-width=".4"/><line class="svg-line" x1="100" y1="90" x2="100" y2="140" stroke="#c99a3f" stroke-width=".4"/><line class="svg-line" x1="130" y1="90" x2="130" y2="140" stroke="#c99a3f" stroke-width=".4"/><line class="svg-line" x1="160" y1="90" x2="160" y2="140" stroke="#c99a3f" stroke-width=".4"/><line class="svg-line" x1="190" y1="90" x2="190" y2="140" stroke="#c99a3f" stroke-width=".4"/><line class="svg-line" x1="220" y1="90" x2="220" y2="140" stroke="#c99a3f" stroke-width=".4"/><line class="svg-line" x1="250" y1="90" x2="250" y2="140" stroke="#c99a3f" stroke-width=".4"/><line class="svg-line" x1="280" y1="90" x2="280" y2="140" stroke="#c99a3f" stroke-width=".4"/><line class="svg-line" x1="310" y1="90" x2="310" y2="140" stroke="#c99a3f" stroke-width=".4"/><line class="svg-line" x1="340" y1="90" x2="340" y2="140" stroke="#c99a3f" stroke-width=".4"/><line class="svg-line" x1="370" y1="90" x2="370" y2="140" stroke="#c99a3f" stroke-width=".4"/></g><g fill="#c99a3f" opacity=".25"><circle cx="40" cy="140" r="3"/><circle cx="70" cy="140" r="3"/><circle cx="100" cy="140" r="3"/><circle cx="130" cy="140" r="3"/><circle cx="160" cy="140" r="3"/><circle cx="190" cy="140" r="3"/><circle cx="220" cy="140" r="3"/><circle cx="250" cy="140" r="3"/><circle cx="280" cy="140" r="3"/><circle cx="310" cy="140" r="3"/><circle cx="340" cy="140" r="3"/><circle cx="370" cy="140" r="3"/></g><g font-family="monospace" font-size="7" fill="#c99a3f" opacity=".25"><text x="340" y="90">90+ teams</text></g><line x1="20" y1="160" x2="380" y2="160" stroke="#c99a3f" stroke-width=".3" opacity=".15"/><g font-family="monospace" font-size="7" fill="#c99a3f" opacity=".3"><text x="20" y="175">KUBERNETES CLUSTER</text></g><rect x="20" y="180" width="360" height="50" rx="4" stroke="#c99a3f" stroke-width=".5" opacity=".15"/><g opacity=".2"><rect class="svg-box" x="30" y="188" width="50" height="34" rx="2" stroke="#c99a3f"/><rect class="svg-box" x="88" y="188" width="50" height="34" rx="2" stroke="#c99a3f"/><rect class="svg-box" x="146" y="188" width="50" height="34" rx="2" stroke="#c99a3f"/><rect class="svg-box" x="204" y="188" width="50" height="34" rx="2" stroke="#c99a3f"/><rect class="svg-box" x="262" y="188" width="50" height="34" rx="2" stroke="#c99a3f"/><rect class="svg-box" x="320" y="188" width="50" height="34" rx="2" stroke="#c99a3f"/></g><g font-family="monospace" font-size="6" fill="#c99a3f" opacity=".3"><text x="55" y="210" text-anchor="middle">POD</text><text x="113" y="210" text-anchor="middle">POD</text><text x="171" y="210" text-anchor="middle">POD</text><text x="229" y="210" text-anchor="middle">POD</text><text x="287" y="210" text-anchor="middle">POD</text><text x="345" y="210" text-anchor="middle">POD</text></g><g font-family="monospace" font-size="7" fill="#c99a3f" opacity=".35"><text x="20" y="252">DEPLOY FREQ</text><text x="20" y="270" font-size="12" font-weight="bold" opacity=".6">120/day</text><text x="140" y="252">LEAD TIME</text><text x="140" y="270" font-size="12" font-weight="bold" opacity=".6">8 min</text><text x="250" y="252">ROLLBACK</text><text x="250" y="270" font-size="12" font-weight="bold" opacity=".6">&lt;30s</text><text x="340" y="252">SUCCESS</text><text x="340" y="270" font-size="12" font-weight="bold" opacity=".6">99.2%</text></g></svg></div>
       <div class="body" style="flex:1"><span class="tag">DevOps / Retail</span><h3>Hyperion Delivery Platform</h3><p class="sub">From idea to production in minutes, not months.</p><span class="rule" aria-hidden="true"></span><p>A self-service internal developer platform that reduced deployment time from days to minutes across 90+ engineering teams.</p></div>
     </a>
   </div>
@@ -658,16 +750,16 @@ footer{position:relative;z-index:2;padding:56px clamp(20px,5vw,72px) 28px;border
     <p class="section-sub">Outcome-driven engineering across ten disciplines, one team, one SLA, one standard of quality.</p>
   </div>
   <div class="bento spatial-perspective" data-stagger id="svcGrid">
-    <article class="tile svc reveal sp4"><div class="ic"><img class="ic-img" src="icons/cloud-computing.png" alt="" width="96" height="96" /></div><h3>Cloud Computing</h3><p>Multi-cloud platforms engineered for elastic scale, provisioned in minutes, optimized for cost, with zero-downtime migrations.</p></article>
-    <article class="tile svc reveal sp4"><div class="ic"><img class="ic-img" src="icons/shield-check.png" alt="" width="96" height="96" /></div><h3>Cybersecurity</h3><p>Zero-trust architecture and 24/7 SOC operations that stop breaches before they start, and keep your auditors happy.</p></article>
-    <article class="tile svc reveal sp4"><div class="ic"><img class="ic-img" src="icons/world.png" alt="" width="96" height="96" /></div><h3>Networking</h3><p>Software-defined global networks with intelligent routing and self-healing failover, low latency where it counts.</p></article>
-    <article class="tile svc reveal sp8 wide"><div class="ic"><img class="ic-img" src="icons/server.png" alt="" width="96" height="96" /></div><h3>Infrastructure</h3><p>Immutable, infrastructure-as-code foundations that make outages a design flaw, not an accident.</p></article>
-    <article class="tile svc reveal sp4"><div class="ic"><img class="ic-img" src="icons/code.png" alt="" width="96" height="96" /></div><h3>Software Development</h3><p>Cloud-native applications and APIs your users love, built with rigorous engineering, not heroics.</p></article>
-    <article class="tile svc reveal sp4"><div class="ic"><img class="ic-img" src="icons/git-branch.png" alt="" width="96" height="96" /></div><h3>DevOps</h3><p>Golden-path CI/CD and GitOps that ship value in minutes, not months, safely, every time.</p></article>
-    <article class="tile svc reveal sp8 wide"><div class="ic"><img class="ic-img" src="icons/brain.png" alt="" width="96" height="96" /></div><h3>AI Solutions</h3><p>Production-grade ML and generative AI tuned to your data, with results you can measure, not demos.</p></article>
-    <article class="tile svc reveal sp4"><div class="ic"><img class="ic-img" src="icons/compass.png" alt="" width="96" height="96" /></div><h3>IT Consulting</h3><p>Strategy and modernization roadmaps from engineers who have shipped at scale, so you skip the costly detours.</p></article>
-    <article class="tile svc reveal sp4"><div class="ic"><img class="ic-img" src="icons/server-cog.png" alt="" width="96" height="96" /></div><h3>Managed Services</h3><p>Fully-managed operations with proactive SRE and guaranteed SLAs, your team sleeps, we stay up.</p></article>
-    <article class="tile svc reveal sp4"><div class="ic"><img class="ic-img" src="icons/building-community.png" alt="" width="96" height="96" /></div><h3>Data Center Solutions</h3><p>High-density, energy-optimized data center design and lifecycle management, built for the next decade.</p></article>
+    <article class="tile svc reveal sp4"><div class="ic"><img class="ic-img" loading="lazy" src="icons/cloud-computing.png" alt="" width="96" height="96" /></div><h3>Cloud Computing</h3><p>Multi-cloud platforms engineered for elastic scale, provisioned in minutes, optimized for cost, with zero-downtime migrations.</p></article>
+    <article class="tile svc reveal sp4"><div class="ic"><img class="ic-img" loading="lazy" src="icons/shield-check.png" alt="" width="96" height="96" /></div><h3>Cybersecurity</h3><p>Zero-trust architecture and 24/7 SOC operations that stop breaches before they start, and keep your auditors happy.</p></article>
+    <article class="tile svc reveal sp4"><div class="ic"><img class="ic-img" loading="lazy" src="icons/world.png" alt="" width="96" height="96" /></div><h3>Networking</h3><p>Software-defined global networks with intelligent routing and self-healing failover, low latency where it counts.</p></article>
+    <article class="tile svc reveal sp8 wide"><div class="ic"><img class="ic-img" loading="lazy" src="icons/server.png" alt="" width="96" height="96" /></div><h3>Infrastructure</h3><p>Immutable, infrastructure-as-code foundations that make outages a design flaw, not an accident.</p></article>
+    <article class="tile svc reveal sp4"><div class="ic"><img class="ic-img" loading="lazy" src="icons/code.png" alt="" width="96" height="96" /></div><h3>Software Development</h3><p>Cloud-native applications and APIs your users love, built with rigorous engineering, not heroics.</p></article>
+    <article class="tile svc reveal sp4"><div class="ic"><img class="ic-img" loading="lazy" src="icons/git-branch.png" alt="" width="96" height="96" /></div><h3>DevOps</h3><p>Golden-path CI/CD and GitOps that ship value in minutes, not months, safely, every time.</p></article>
+    <article class="tile svc reveal sp8 wide"><div class="ic"><img class="ic-img" loading="lazy" src="icons/brain.png" alt="" width="96" height="96" /></div><h3>AI Solutions</h3><p>Production-grade ML and generative AI tuned to your data, with results you can measure, not demos.</p></article>
+    <article class="tile svc reveal sp4"><div class="ic"><img class="ic-img" loading="lazy" src="icons/compass.png" alt="" width="96" height="96" /></div><h3>IT Consulting</h3><p>Strategy and modernization roadmaps from engineers who have shipped at scale, so you skip the costly detours.</p></article>
+    <article class="tile svc reveal sp4"><div class="ic"><img class="ic-img" loading="lazy" src="icons/server-cog.png" alt="" width="96" height="96" /></div><h3>Managed Services</h3><p>Fully-managed operations with proactive SRE and guaranteed SLAs, your team sleeps, we stay up.</p></article>
+    <article class="tile svc reveal sp4"><div class="ic"><img class="ic-img" loading="lazy" src="icons/building-community.png" alt="" width="96" height="96" /></div><h3>Data Center Solutions</h3><p>High-density, energy-optimized data center design and lifecycle management, built for the next decade.</p></article>
   </div>
 </section>
 
@@ -691,30 +783,62 @@ footer{position:relative;z-index:2;padding:56px clamp(20px,5vw,72px) 28px;border
 <!-- TECH STACK -->
 <section id="tech">
   <div class="center section-head" data-reveal>
-    <span class="eyebrow">Under the hood</span>
+    
     <h2 class="section-title">A <span class="grad">battle-tested</span> technology stack</h2>
     <p class="section-sub">The open, cloud-native toolkit we ship with every engagement, no lock-in, no mystery.</p>
   </div>
-  <div class="bento">
-    <div class="tile sp12 marquee-card">
-      <div class="marquee" role="region" aria-label="Technology stack">
-        <div class="marquee-track">
-          <div class="marq-group" id="marqGroup"></div>
-        </div>
-      </div>
-    </div>
+  <div class="marquee" role="region" aria-label="Technology stack" id="techMarquee">
+    <div class="marquee-track" id="techTrack"></div>
   </div>
 </section>
 
 <!-- WHY -->
 <section id="why">
   <div class="center section-head" data-reveal>
-    <span class="eyebrow">Why Kivora</span>
+    
     <h2 class="section-title">Why enterprises <span class="grad">choose Kivora</span></h2>
     <p class="section-sub">Six reasons, grab one and give it a toss. They always find their way home.</p>
   </div>
   <div class="bubble-stage-wrap reveal">
     <div class="bubble-stage" id="bubbleStage"></div>
+  </div>
+</section>
+
+<!-- COMPARISON -->
+<section class="compare">
+  <div class="center section-head" data-reveal>
+    <h2 class="section-title">How we <span class="grad">compare</span></h2>
+    <p class="section-sub">Not every path to production is equal. Here is how Kivora stacks up against the alternatives.</p>
+  </div>
+  <div class="compare-grid" data-reveal>
+    <div class="compare-cell header"></div>
+    <div class="compare-cell header kivora">Kivora</div>
+    <div class="compare-cell header">In-House Team</div>
+    <div class="compare-cell header">Big 4 Consultancy</div>
+    <div class="compare-cell">Time to first production deploy</div>
+    <div class="compare-cell kivora"><span class="check">&#10003;</span>2-4 weeks</div>
+    <div class="compare-cell"><span class="partial">~</span>3-6 months</div>
+    <div class="compare-cell"><span class="cross">&#10007;</span>6-12 months</div>
+    <div class="compare-cell">Security posture</div>
+    <div class="compare-cell kivora"><span class="check">&#10003;</span>SOC 2, HIPAA, PCI from day one</div>
+    <div class="compare-cell"><span class="partial">~</span>Builds over time</div>
+    <div class="compare-cell"><span class="partial">~</span>Audit-heavy, slow remediation</div>
+    <div class="compare-cell">Scaling model</div>
+    <div class="compare-cell kivora"><span class="check">&#10003;</span>Elastic, pay for what you use</div>
+    <div class="compare-cell"><span class="cross">&#10007;</span>Fixed capacity, hiring lag</div>
+    <div class="compare-cell"><span class="partial">~</span>Project-based, handoff at end</div>
+    <div class="compare-cell">Knowledge transfer</div>
+    <div class="compare-cell kivora"><span class="check">&#10003;</span>Embedded, golden paths, docs</div>
+    <div class="compare-cell"><span class="check">&#10003;</span>You own it (if they stay)</div>
+    <div class="compare-cell"><span class="cross">&#10007;</span>Knowledge walks out the door</div>
+    <div class="compare-cell">Ongoing SRE support</div>
+    <div class="compare-cell kivora"><span class="check">&#10003;</span>24/7 global, guaranteed SLA</div>
+    <div class="compare-cell"><span class="cross">&#10007;</span>On-call burden, no SLA</div>
+    <div class="compare-cell"><span class="cross">&#10007;</span>Retainer model, slow response</div>
+    <div class="compare-cell">Cost predictability</div>
+    <div class="compare-cell kivora"><span class="check">&#10003;</span>Fixed-scope, no surprises</div>
+    <div class="compare-cell"><span class="cross">&#10007;</span>Salary + benefits + tooling</div>
+    <div class="compare-cell"><span class="cross">&#10007;</span>SOW-driven, change orders</div>
   </div>
 </section>
 
@@ -731,7 +855,7 @@ footer{position:relative;z-index:2;padding:56px clamp(20px,5vw,72px) 28px;border
 <!-- TESTIMONIALS -->
 <section id="testimonials">
   <div class="center section-head" data-reveal>
-    <span class="eyebrow">Client voices</span>
+    
     <h2 class="section-title">What partners <span class="grad">say</span></h2>
     <p class="section-sub">Real words from engineering leaders who have shipped with us.</p>
   </div>
@@ -742,13 +866,13 @@ footer{position:relative;z-index:2;padding:56px clamp(20px,5vw,72px) 28px;border
 <section id="about">
   <div class="bento" data-stagger>
     <div class="tile sp7 reveal" data-reveal>
-      <span class="eyebrow">Who we are</span>
+
       <h2 class="section-title">We are the engineers behind <span class="grad">mission-critical platforms</span></h2>
       <p class="section-sub">Founded by cloud architects, security researchers and machine-learning engineers, Kivora Tech Pvt. Ltd. exists to remove complexity from mission-critical technology. From hyperscale data centers to intelligent edge networks, we design systems that stay online, stay secure, and stay ahead.</p>
       <p class="section-sub" style="margin-top:12px">Our multidisciplinary teams embed with yours, treating your uptime, your compliance posture and your roadmap as our own. We do not ship prototypes. We ship production-grade platforms trusted by regulated industries across the globe.</p>
     </div>
     <div class="tile sp5 reveal">
-      <span class="eyebrow">At a glance</span>
+
       <div class="mini-stats">
         <div class="mini-stat"><div class="num">12+</div><div class="lbl">Years in ops</div></div>
         <div class="mini-stat"><div class="num">340</div><div class="lbl">Engineers</div></div>
@@ -756,15 +880,15 @@ footer{position:relative;z-index:2;padding:56px clamp(20px,5vw,72px) 28px;border
         <div class="mini-stat"><div class="num">24/7</div><div class="lbl">Global SRE</div></div>
       </div>
     </div>
-    <div class="tile sp6 reveal"><div class="ic" aria-hidden="true"><img class="ic-img" src="icons/rocket.png" alt="" width="96" height="96" /></div><h3>Our Mission</h3><p style="color:var(--muted);font-size:13px">To empower enterprises to operate at planetary scale, delivering cloud, security and intelligence platforms that are radically reliable, effortlessly secure and built to evolve.</p></div>
-    <div class="tile sp6 reveal"><div class="ic" aria-hidden="true"><img class="ic-img" src="icons/stars.png" alt="" width="96" height="96" /></div><h3>Our Vision</h3><p style="color:var(--muted);font-size:13px">A world where every organization runs on autonomous, self-healing systems, where downtime is obsolete, breaches are anticipated and human engineers are freed to build what matters.</p></div>
+    <div class="tile sp6 reveal"><div class="ic" aria-hidden="true"><img class="ic-img" loading="lazy" src="icons/rocket.png" alt="" width="96" height="96" /></div><h3>Our Mission</h3><p style="color:var(--muted);font-size:13px">To empower enterprises to operate at planetary scale, delivering cloud, security and intelligence platforms that are radically reliable, effortlessly secure and built to evolve.</p></div>
+    <div class="tile sp6 reveal"><div class="ic" aria-hidden="true"><img class="ic-img" loading="lazy" src="icons/stars.png" alt="" width="96" height="96" /></div><h3>Our Vision</h3><p style="color:var(--muted);font-size:13px">A world where every organization runs on autonomous, self-healing systems, where downtime is obsolete, breaches are anticipated and human engineers are freed to build what matters.</p></div>
   </div>
 </section>
 
 <!-- TIMELINE -->
 <section id="timeline">
   <div class="center section-head" data-reveal>
-    <span class="eyebrow">Our journey</span>
+    
     <h2 class="section-title">A decade of <span class="grad">momentum</span></h2>
   </div>
   <div class="bento spatial-perspective" data-stagger id="tlWrap"></div>
@@ -773,7 +897,7 @@ footer{position:relative;z-index:2;padding:56px clamp(20px,5vw,72px) 28px;border
 <!-- FAQ -->
 <section id="faq">
   <div class="center section-head" data-reveal>
-    <span class="eyebrow">Answers</span>
+    
     <h2 class="section-title">Frequently asked <span class="grad">questions</span></h2>
   </div>
   <div class="bento">
@@ -785,10 +909,10 @@ footer{position:relative;z-index:2;padding:56px clamp(20px,5vw,72px) 28px;border
 <section id="cta">
   <div class="bento">
     <div class="tile sp12 reveal" style="padding:clamp(40px,6vw,72px);text-align:center">
-      <span class="eyebrow" style="justify-content:center">Ready when you are</span>
+      
       <h2 class="section-title" style="font-size:clamp(26px,4vw,48px)">Let us find your fastest path to <span class="grad">production</span></h2>
       <p class="section-sub" style="margin:0 auto 28px">Book a free architecture review, our engineers will map the fastest safe route to your goal, with a clear plan and honest numbers. No obligation.</p>
-      <a href="#contact" class="btn btn-primary">Book a free review <span>&rarr;</span></a>
+      <a href="#contact" class="btn btn-primary">Get in touch <span>&rarr;</span></a>
     </div>
   </div>
 </section>
@@ -800,9 +924,9 @@ footer{position:relative;z-index:2;padding:56px clamp(20px,5vw,72px) 28px;border
       <span class="eyebrow">Contact</span>
       <h2 class="section-title">Reach mission <span class="grad">control</span></h2>
       <p class="section-sub" style="margin-bottom:18px">Whether it is a full platform build or a single hard problem, our team responds within one business day.</p>
-      <div class="ci-row"><div class="ic" aria-hidden="true"><img class="ic-img" src="icons/map-pin.png" alt="" width="96" height="96" /></div><div><b>Headquarters</b><span>Kathmandu Tech Park, Kathmandu, Nepal</span></div></div>
-      <div class="ci-row"><div class="ic" aria-hidden="true"><img class="ic-img" src="icons/mail.png" alt="" width="96" height="96" /></div><div><b>Email</b><a href="mailto:hello@kivora.tech">hello@kivora.tech</a></div></div>
-      <div class="ci-row"><div class="ic" aria-hidden="true"><img class="ic-img" src="icons/phone.png" alt="" width="96" height="96" /></div><div><b>Phone</b><a href="tel:+97715550142">+977 1 555 0142</a></div></div>
+      <div class="ci-row"><div class="ic" aria-hidden="true"><img class="ic-img" loading="lazy" src="icons/map-pin.png" alt="" width="96" height="96" /></div><div><b>Headquarters</b><span>Kathmandu Tech Park, Kathmandu, Nepal</span></div></div>
+      <div class="ci-row"><div class="ic" aria-hidden="true"><img class="ic-img" loading="lazy" src="icons/mail.png" alt="" width="96" height="96" /></div><div><b>Email</b><a href="mailto:hello@kivora.tech">hello@kivora.tech</a></div></div>
+      <div class="ci-row"><div class="ic" aria-hidden="true"><img class="ic-img" loading="lazy" src="icons/phone.png" alt="" width="96" height="96" /></div><div><b>Phone</b><a href="tel:+97715550142">+977 1 555 0142</a></div></div>
     </div>
     <form class="tile sp6 contact-form reveal" id="contactForm" novalidate>
       <div class="field" data-field="name"><label for="cName">Name</label><input id="cName" name="name" type="text" required placeholder="Ada Lovelace" aria-describedby="err-name" /><small class="field-err" id="err-name"></small></div>
@@ -852,75 +976,47 @@ footer{position:relative;z-index:2;padding:56px clamp(20px,5vw,72px) 28px;border
 const reduceMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 /* ---------- DYNAMIC CONTENT ---------- */
-const DATA={
-  tech:["Kubernetes","Terraform","AWS","Azure","Go","Rust","Python","TypeScript","React","Node.js","PostgreSQL","Kafka","Redis","GraphQL","gRPC","Istio","Prometheus","Grafana","TensorFlow","PyTorch","Docker","Vault","ArgoCD","Snowflake","Elasticsearch","WebAssembly"],
-  why:[
-    {t:"Outcome-obsessed",d:"We measure success by your uptime, velocity and business results, not billable hours.",i:"target.png"},
-    {t:"Security by default",d:"Every platform is hardened, audited and compliance-ready from the very first commit.",i:"lock.png"},
-    {t:"Scale-proven",d:"Our systems run billions of requests daily for the world's most demanding workloads.",i:"trending-up.png"},
-    {t:"True partnership",d:"We embed with your teams and transfer knowledge, so you own your future.",i:"user-heart.png"},
-    {t:"Relentless speed",d:"Golden-path automation means ideas reach production in minutes, safely.",i:"bolt.png"},
-    {t:"Global reach",d:"42 regions, follow-the-sun operations and local expertise wherever you operate.",i:"globe.png"}
-  ],
-  industries:[
-    {n:"Finance",d:"Banking, payments & fintech",i:"building-bank.png",s:"lg"},
-    {n:"Healthcare",d:"Providers & life sciences",i:"building-hospital.png",s:"md"},
-    {n:"Retail",d:"Commerce at global scale",i:"shopping-bag.png",s:"sm"},
-    {n:"Government",d:"Secure public sector systems",i:"building-castle.png",s:"md"},
-    {n:"Telecom",d:"Carrier-grade networks",i:"antenna.png",s:"lg"},
-    {n:"Energy",d:"Grid & utility platforms",i:"bolt.png",s:"sm"},
-    {n:"Education",d:"Learning infrastructure",i:"certificate.png",s:"md"},
-    {n:"Logistics",d:"Supply chain intelligence",i:"truck.png",s:"lg"}
-  ],
-  testimonials:[
-    {q:"Kivora rebuilt our payments core with zero downtime. What used to take days now takes minutes. They are simply the best engineering partner we have worked with.",n:"Priya Sharma",r:"CTO",c:"Meridian Bank"},
-    {q:"Their zero-trust rollout stopped three active threats in the first month. The team operates like an extension of our own, sharp, fast, relentless.",n:"David Chen",r:"CISO",c:"Helix Health"},
-    {q:"We scaled from 1M to 40M users without a single outage. Kivora's platform thinking is a decade ahead of everyone else.",n:"Amara Okafor",r:"VP Eng",c:"Novastore"}
-  ],
-  timeline:[
-    {y:2013,t:"Founded",d:"Three engineers, one mission: kill downtime."},
-    {y:2016,t:"First hyperscale",d:"Launched our first billion-request platform."},
-    {y:2018,t:"Security division",d:"Opened our 24/7 global SOC."},
-    {y:2020,t:"AI lab",d:"Established the Kivora AI research group."},
-    {y:2022,t:"Global expansion",d:"Operations across 42 regions worldwide."},
-    {y:2024,t:"Autonomous ops",d:"Shipped self-healing infrastructure platform."}
-  ],
-  faq:[
-    {q:"What industries does Kivora Tech specialize in?",a:"We serve finance, healthcare, government, retail, telecom, energy, education and logistics, anywhere reliability, security and scale are mission-critical."},
-    {q:"Do you work with our existing engineering team?",a:"Always. We embed with your teams, transfer knowledge and build golden paths so you own and evolve your platform long after we hand off."},
-    {q:"How do you ensure security and compliance?",a:"Security is built into every commit. We are SOC 2 Type II certified and deliver HIPAA, PCI-DSS, GDPR and FedRAMP-aligned platforms with continuous compliance automation."},
-    {q:"What is your typical engagement model?",a:"From focused advisory sprints to multi-year managed platforms, we tailor engagements to your goals. Most partnerships begin with a discovery phase and a fixed-scope blueprint."},
-    {q:"How quickly can we get started?",a:"Discovery can begin within one week. Our architects respond to every inquiry within one business day."}
-  ]
-};
+let DATA={tech:[],why:[],industries:[],testimonials:[],timeline:[],faq:[]};
+fetch("company.json").then(r=>r.json()).then(j=>{
+  DATA={
+    tech:j.techStack,
+    why:j.whyChooseUs.map(w=>({t:w.title,d:w.description,i:w.icon})),
+    industries:j.industries.map(ind=>({n:ind.name,d:ind.description,i:ind.icon,s:ind.size})),
+    testimonials:j.testimonials.map(te=>({q:te.quote,n:te.name,r:te.role,c:te.company})),
+    timeline:j.timeline.map(tl=>({y:tl.year,t:tl.title,d:tl.description})),
+    faq:j.faq.map(f=>({q:f.question,a:f.answer}))
+  };
+  renderDynamic();
+}).catch(()=>{});
 
-// Tech marquee
-const mg=document.getElementById("marqGroup");
-if(mg){DATA.tech.forEach(t=>{const d=document.createElement("div");d.className="marq-item";d.innerHTML=`<img src="icons/tech/${t.toLowerCase().replace(/[^a-z0-9]/g,"-")}.svg" alt="${t}" decoding="async" width="22" height="22" onerror="this.style.display='none'"/><span>${t}</span>`;mg.appendChild(d);});
-const gc=mg.cloneNode(true);gc.setAttribute("aria-hidden","true");gc.querySelectorAll("img").forEach(i=>i.alt="");mg.parentElement.appendChild(gc);}
-
+function renderDynamic(){
+// Tech marquee banner
+const techTrack=document.getElementById("techTrack");
+if(techTrack){
+  const mkItem=t=>{const d=document.createElement("div");d.className="marquee-item";const slug=t.toLowerCase().replace(/[^a-z0-9]/g,"-");d.innerHTML=`<img src="icons/tech/${slug}.svg" alt="${t}" decoding="async" width="22" height="22" onerror="this.style.display='none'"/><span>${t}</span>`;return d;};
+  DATA.tech.forEach(t=>techTrack.appendChild(mkItem(t)));
+  // Clone for seamless loop
+  DATA.tech.forEach(t=>{const c=mkItem(t);c.setAttribute("aria-hidden","true");techTrack.appendChild(c);});
+}
 // Why bubbles
 const bs=document.getElementById("bubbleStage");
-if(bs){DATA.why.forEach(w=>{const b=document.createElement("div");b.className="bubble";b.tabIndex=0;b.title=w.t+": "+w.d;b.innerHTML=`<div class="ic"><img class="ic-img" src="icons/${w.i}" alt="" width="96" height="96" /></div><h3>${w.t}</h3><p>${w.d}</p>`;bs.appendChild(b);});}
-
+if(bs){DATA.why.forEach(w=>{const b=document.createElement("div");b.className="bubble";b.tabIndex=0;b.title=w.t+": "+w.d;b.innerHTML=`<div class="ic"><img class="ic-img" loading="lazy" src="icons/${w.i}" alt="" width="96" height="96" /></div><h3>${w.t}</h3><p>${w.d}</p>`;bs.appendChild(b);});}
 // Industries
 const ig=document.getElementById("indGrid");
-if(ig){DATA.industries.forEach(ind=>{const a=document.createElement("article");a.className=`tile ind ind-${ind.s} reveal`;a.innerHTML=`<div class="ic"><img class="ic-img" src="icons/${ind.i}" alt="" width="96" height="96" /></div><h4>${ind.n}</h4><p>${ind.d}</p>`;ig.appendChild(a);});}
-
+if(ig){DATA.industries.forEach(ind=>{const a=document.createElement("article");a.className=`tile ind ind-${ind.s} reveal`;a.innerHTML=`<div class="ic"><img class="ic-img" loading="lazy" src="icons/${ind.i}" alt="" width="96" height="96" /></div><h4>${ind.n}</h4><p>${ind.d}</p>`;ig.appendChild(a);});}
 // Testimonials
 const tg=document.getElementById("testGrid");
 if(tg){DATA.testimonials.forEach(t=>{const a=document.createElement("article");a.className="tile quote reveal sp4";a.innerHTML=`<div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p>\u201c${t.q}\u201d</p><div class="who"><div class="av"></div><div><b>${t.n}</b><span>${t.r}, ${t.c}</span></div></div>`;tg.appendChild(a);});}
-
 // Timeline
 const tw=document.getElementById("tlWrap");
 if(tw){DATA.timeline.forEach(t=>{const d=document.createElement("div");d.className="tile tl-item reveal sp2";d.innerHTML=`<div class="tl-head"><span class="yr">${t.y}</span><h4>${t.t}</h4></div><p>${t.d}</p>`;tw.appendChild(d);});}
-
 // FAQ
 const fw=document.getElementById("faqWrap");
 if(fw){DATA.faq.forEach((f,i)=>{const d=document.createElement("div");d.className="faq-item reveal";d.innerHTML=`<button class="faq-q" aria-expanded="false" aria-controls="faq-a-${i}" id="faq-q-${i}"><span>${f.q}</span><span class="pm">+</span></button><div class="faq-a" id="faq-a-${i}" role="region" aria-labelledby="faq-q-${i}"><p>${f.a}</p></div>`;fw.appendChild(d);});}
-
-/* ---------- INTERACTIONS ---------- */
 initBubbles();
+// Re-observe all .reveal and [data-reveal] elements added by dynamic content
+observeReveals();
+}
 function initBubbles(){
   const stage=document.getElementById("bubbleStage");if(!stage)return;
   const bubbles=[...stage.querySelectorAll(".bubble")];if(!bubbles.length)return;
@@ -954,7 +1050,7 @@ if(mtrack&&!mtrack.dataset.cloned){mtrack.dataset.cloned="1";const g=mtrack.quer
 
 /* NAV */
 const nav=document.getElementById("nav"),burger=document.getElementById("burger"),navLinks=document.getElementById("navLinks");
-window.addEventListener("scroll",()=>nav.classList.toggle("scrolled",window.scrollY>40),{passive:true});
+const navSentinel=document.createElement("div");navSentinel.style.cssText="position:absolute;top:0;left:0;width:1px;height:1px";document.body.prepend(navSentinel);new IntersectionObserver(([e])=>nav.classList.toggle("scrolled",!e.isIntersecting),{threshold:0}).observe(navSentinel);
 function closeMenu(){navLinks.classList.remove("open");burger.classList.remove("open");burger.setAttribute("aria-expanded",false);document.body.style.overflow="";}
 burger.addEventListener("click",()=>{const o=navLinks.classList.toggle("open");burger.classList.toggle("open",o);burger.setAttribute("aria-expanded",o);document.body.style.overflow=o?"hidden":"";});
 navLinks.querySelectorAll("a").forEach(a=>a.addEventListener("click",closeMenu));
@@ -964,10 +1060,15 @@ window.addEventListener("resize",()=>{if(innerWidth>1080)closeMenu();});
 
 /* STAGGER + SCROLL REVEAL */
 document.querySelectorAll("[data-stagger]").forEach(g=>{[...g.children].forEach((c,i)=>c.style.setProperty("--d",((i%6)*80)+"ms"));});
-const revealIo=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");revealIo.unobserve(e.target);}});},{threshold:0.12,rootMargin:"0px 0px -60px 0px"});
-document.querySelectorAll(".reveal:not(.in)").forEach(n=>revealIo.observe(n));
-const dataRevealIo=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");dataRevealIo.unobserve(e.target);}});},{threshold:0.15,rootMargin:"0px 0px -40px 0px"});
-document.querySelectorAll("[data-reveal]:not(.in)").forEach(el=>dataRevealIo.observe(el));
+const revealIo=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");revealIo.unobserve(e.target);}});},{threshold:0,rootMargin:"0px 0px -20px 0px"});
+const dataRevealIo=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");dataRevealIo.unobserve(e.target);}});},{threshold:0,rootMargin:"0px 0px -20px 0px"});
+function observeReveals(){
+document.querySelectorAll(".reveal:not(.in)").forEach(n=>{revealIo.observe(n);const r=n.getBoundingClientRect();if(r.top<window.innerHeight&&r.bottom>0){n.classList.add("in");revealIo.unobserve(n);}});
+document.querySelectorAll("[data-reveal]:not(.in)").forEach(el=>{dataRevealIo.observe(el);const r=el.getBoundingClientRect();if(r.top<window.innerHeight&&r.bottom>0){el.classList.add("in");dataRevealIo.unobserve(el);}});
+// Fallback poll: catches elements IO misses
+let rp=0;const rpId=setInterval(()=>{const els=document.querySelectorAll(".reveal:not(.in),[data-reveal]:not(.in)");if(!els.length||rp>30){clearInterval(rpId);return;}els.forEach(n=>{const r=n.getBoundingClientRect();if(r.top<window.innerHeight&&r.bottom>0){n.classList.add("in");revealIo.unobserve(n);dataRevealIo.unobserve(n);}});rp++;},300);
+}
+observeReveals();
 
 /* TERMINAL */
 if(!reduceMotion){
@@ -977,7 +1078,7 @@ if(!reduceMotion){
   tClock.textContent=fmtTime();setInterval(()=>{tClock.textContent=fmtTime();},1000);
   setInterval(()=>{reqRate+=Math.floor(Math.random()*800-300);reqRate=Math.max(160000,Math.min(195000,reqRate));tReq.textContent=reqRate.toLocaleString();},2200);
   const msgs=["deploy v2.14.7 completed","autoscale triggered: +12 pods","backup verified: region ap-south-1","canary promoted to production","SSL renewed: *.kivora.tech","cache invalidated: cdn-global"];
-  let mIdx=0;setInterval(()=>{const row=document.createElement("div");row.className="tl-row";row.innerHTML=`<span class="ts">${fmtTime()}</span><span class="ok">ok</span> ${msgs[mIdx++%msgs.length]}`;tLog.prepend(row);if(tLog.children.length>5)tLog.lastChild.remove();},4500);
+  let mIdx=0;setInterval(()=>{const row=document.createElement("div");row.className="tl-row";row.innerHTML=`<span class="ts">${fmtTime()}</span><span class="ok">ok</span> ${msgs[mIdx++%msgs.length]}`;tLog.prepend(row);if(tLog.children.length>5&&tLog.lastChild)tLog.lastChild.remove();},4500);
 }
 
 /* SPATIAL: parallax + tilt */
@@ -988,14 +1089,26 @@ if(!reduceMotion&&matchMedia("(hover:hover) and (pointer:fine)").matches){
 }
 
 /* SCROLL PROGRESS */
-const progress=document.getElementById("progress");let ticking=false;
-function updateProgress(){const h=document.documentElement.scrollHeight-innerHeight;progress.style.width=(h>0?(scrollY/h)*100:0)+"%";ticking=false;}
-window.addEventListener("scroll",()=>{if(!ticking){requestAnimationFrame(updateProgress);ticking=true;}},{passive:true});
+const progress=document.getElementById("progress");
+const progressSentinel=document.createElement("div");progressSentinel.style.cssText="position:absolute;bottom:0;left:0;width:1px;height:1px";document.body.append(progressSentinel);
+const progressIo=new IntersectionObserver(([e])=>{progress.style.width=e.isIntersecting?"100%":"0%";},{threshold:0});
+progressIo.observe(progressSentinel);
+
+/* PROOF COUNTER ANIMATION */
+if(!reduceMotion){
+  const proofReq=document.getElementById("proofReq");
+  if(proofReq){
+    let counted=false;
+    new IntersectionObserver(([e])=>{
+      if(e.isIntersecting&&!counted){counted=true;let c=0;const target=15;const step=()=>{c+=0.5;if(c>=target){proofReq.textContent="15B+";return;}proofReq.textContent=Math.floor(c)+"B+";requestAnimationFrame(step);};step();}
+    },{threshold:.5}).observe(proofReq.closest(".tile"));
+  }
+}
 
 /* BOTTOM NAV ACTIVE STATE */
 const bnLinks=document.querySelectorAll(".bn-link");
 const bnSections=["hero","projects","services","faq","contact"];
-window.addEventListener("scroll",()=>{let current="hero";for(const id of bnSections){const el=document.getElementById(id);if(el&&el.getBoundingClientRect().top<=120)current=id;}bnLinks.forEach(l=>{l.classList.toggle("active",l.dataset.section===current);});},{passive:true});
+bnSections.forEach(id=>{const el=document.getElementById(id);if(!el)return;new IntersectionObserver(([e])=>{if(e.isIntersecting)bnLinks.forEach(l=>l.classList.toggle("active",l.dataset.section===id));},{rootMargin:"-40% 0px -55% 0px",threshold:0}).observe(el);});
 
 /* MAGNETIC BUTTONS */
 if(!reduceMotion&&matchMedia("(hover:hover) and (pointer:fine)").matches){
@@ -1012,8 +1125,16 @@ function validateField(f){const input=f.querySelector("input,textarea");const ms
 const fields=[...form.querySelectorAll(".field")];fields.forEach(f=>f.querySelector("input,textarea").addEventListener("input",()=>validateField(f)));
 form.addEventListener("submit",e=>{e.preventDefault();const results=fields.map(validateField);const msg=document.getElementById("formMsg");if(results.includes(false)){msg.className="form-msg err";msg.textContent="Please fix the highlighted fields and try again.";fields[results.indexOf(false)].querySelector("input,textarea").focus();return;}const CONTACT_EMAIL="info@kivoratech.com.np";const nm=form.querySelector("[name=name]").value.trim(),em=form.querySelector("[name=email]").value.trim(),ms=form.querySelector("[name=message]").value.trim();location.href="mailto:"+CONTACT_EMAIL+"?subject="+encodeURIComponent("Project inquiry from "+nm)+"&body="+encodeURIComponent(ms+"\n\n- "+nm+" ("+em+")");msg.className="form-msg ok";msg.textContent="Opening your email client, or write us directly at "+CONTACT_EMAIL+".";form.reset();fields.forEach(f=>{f.classList.remove("invalid");f.querySelector("input,textarea").removeAttribute("aria-invalid");});});
 
-/* HERO PARALLAX SCROLL */
-if(!reduceMotion){const heroMain=document.querySelector(".hero-main");let pTick=false;window.addEventListener("scroll",()=>{if(!pTick){requestAnimationFrame(()=>{heroMain.style.transform=`translateY(${Math.min(scrollY*0.1,80)}px)`;heroMain.style.opacity=Math.max(1-scrollY/800,0);pTick=false;});pTick=true;}},{passive:true});}
+/* HERO PARALLAX (IntersectionObserver, desktop only) */
+if(!reduceMotion&&matchMedia("(min-width:701px)").matches){const heroMain=document.querySelector(".hero-main");const heroEl=document.getElementById("hero");
+if(heroMain&&heroEl){const heroSentinel=document.createElement("div");heroSentinel.style.cssText="position:absolute;bottom:0;left:0;width:1px;height:1px";heroEl.appendChild(heroSentinel);
+new IntersectionObserver(([e])=>{if(!e.isIntersecting){heroMain.style.transform="translateY(40px)";heroMain.style.opacity="0.6";}else{heroMain.style.transform="";heroMain.style.opacity="";}},{threshold:0}).observe(heroSentinel);}}
+
+/* HERO ENTRANCE ANIMATION */
+if(!reduceMotion){setTimeout(()=>{const h=document.querySelector(".hero-entrance");h?.classList.add("in");
+// Remove hero-entrance class after animation to restore tilt transition
+setTimeout(()=>{h?.classList.remove("hero-entrance");},1500);},100);}
+
 
 })();
 </script>
