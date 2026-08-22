@@ -1,0 +1,139 @@
+{
+  "company": {
+    "name": "Kivora Tech Pvt. Ltd.",
+    "tagline": "Engineering the Next Frontier",
+    "description": "Enterprise cloud, cybersecurity, AI and infrastructure engineered for the next frontier.",
+    "shortDescription": "Enterprise cloud, cybersecurity, AI and infrastructure engineering company.",
+    "website": "https://www.kivoratech.com.np/",
+    "logo": "logo.jpeg",
+    "logoColors": ["gold", "black", "silver"],
+    "founded": 2013,
+    "headquarters": "Kathmandu Tech Park, Kathmandu, Nepal",
+    "email": "info@kivoratech.com.np",
+    "contactEmail": "hello@kivora.tech",
+    "phone": "+977 1 555 0142",
+    "social": {
+      "x": "https://x.com/",
+      "linkedin": "https://www.linkedin.com/",
+      "github": "https://github.com/",
+      "youtube": "https://www.youtube.com/"
+    }
+  },
+  "stats": {
+    "enterprisesServed": "500+",
+    "uptimeSLA": "99.99%",
+    "globalRegions": 42,
+    "requestsPerDay": "15B+",
+    "engineers": 340,
+    "yearsInOps": "12+",
+    "certification": "SOC 2 Type II",
+    "patentsFiled": "40+",
+    "rdInvested": "$28M"
+  },
+  "compliance": ["SOC 2 Type II", "HIPAA", "PCI-DSS", "GDPR", "FedRAMP-aligned"],
+  "services": [
+    { "name": "Cloud Computing", "description": "Multi-cloud platforms engineered for elastic scale, provisioned in minutes, optimized for cost, with zero-downtime migrations.", "icon": "cloud-computing.png" },
+    { "name": "Cybersecurity", "description": "Zero-trust architecture and 24/7 SOC operations that stop breaches before they start, and keep your auditors happy.", "icon": "shield-check.png" },
+    { "name": "Networking", "description": "Software-defined global networks with intelligent routing and self-healing failover, low latency where it counts.", "icon": "world.png" },
+    { "name": "Infrastructure", "description": "Immutable, infrastructure-as-code foundations that make outages a design flaw, not an accident.", "icon": "server.png" },
+    { "name": "Software Development", "description": "Cloud-native applications and APIs your users love, built with rigorous engineering, not heroics.", "icon": "code.png" },
+    { "name": "DevOps", "description": "Golden-path CI/CD and GitOps that ship value in minutes, not months, safely, every time.", "icon": "git-branch.png" },
+    { "name": "AI Solutions", "description": "Production-grade ML and generative AI tuned to your data, with results you can measure, not demos.", "icon": "brain.png" },
+    { "name": "IT Consulting", "description": "Strategy and modernization roadmaps from engineers who have shipped at scale, so you skip the costly detours.", "icon": "compass.png" },
+    { "name": "Managed Services", "description": "Fully-managed operations with proactive SRE and guaranteed SLAs, your team sleeps, we stay up.", "icon": "server-cog.png" },
+    { "name": "Data Center Solutions", "description": "High-density, energy-optimized data center design and lifecycle management, built for the next decade.", "icon": "building-community.png" }
+  ],
+  "projects": [
+    {
+      "name": "Orbital Payments Grid",
+      "industry": "Cloud / Fintech",
+      "tagline": "Payments that clear in milliseconds, around the clock.",
+      "description": "Re-platformed a national payments network onto a multi-region active-active cloud, cutting transaction latency by 63% while achieving five-nines availability."
+    },
+    {
+      "name": "Nova Diagnostics Engine",
+      "industry": "AI / Healthcare",
+      "tagline": "Every scan read in seconds, at the bedside, not the data center.",
+      "description": "An AI inference platform processing 4M medical images monthly, deployed at the edge with HIPAA-grade security and sub-second results."
+    },
+    {
+      "name": "Aegis Zero-Trust Fabric",
+      "industry": "Security / Government",
+      "tagline": "Trust nobody, verify everything, automatically.",
+      "description": "A nationwide zero-trust security mesh protecting 200k endpoints, with automated threat containment and continuous compliance."
+    },
+    {
+      "name": "Hyperion Delivery Platform",
+      "industry": "DevOps / Retail",
+      "tagline": "From idea to production in minutes, not months.",
+      "description": "A self-service internal developer platform that reduced deployment time from days to minutes across 90+ engineering teams."
+    }
+  ],
+  "process": [
+    { "step": "Discover", "description": "We embed with your teams to map goals, constraints, risk and the current landscape." },
+    { "step": "Architect", "description": "We design a resilient, secure and scalable blueprint, reviewed against real production loads." },
+    { "step": "Build", "description": "Iterative delivery with automated testing, security gates and continuous stakeholder demos." },
+    { "step": "Launch", "description": "Zero-downtime rollout with observability, runbooks and load-tested confidence." },
+    { "step": "Operate", "description": "24/7 SRE, proactive optimization and continuous evolution as your needs grow." }
+  ],
+  "techStack": ["Kubernetes", "Terraform", "AWS", "Azure", "Go", "Rust", "Python", "TypeScript", "React", "Node.js", "PostgreSQL", "Kafka", "Redis", "GraphQL", "gRPC", "Istio", "Prometheus", "Grafana", "TensorFlow", "PyTorch", "Docker", "Vault", "ArgoCD", "Snowflake", "Elasticsearch", "WebAssembly"],
+  "whyChooseUs": [
+    { "title": "Outcome-obsessed", "description": "We measure success by your uptime, velocity and business results, not billable hours." },
+    { "title": "Security by default", "description": "Every platform is hardened, audited and compliance-ready from the very first commit." },
+    { "title": "Scale-proven", "description": "Our systems run billions of requests daily for the world's most demanding workloads." },
+    { "title": "True partnership", "description": "We embed with your teams and transfer knowledge, so you own your future." },
+    { "title": "Relentless speed", "description": "Golden-path automation means ideas reach production in minutes, safely." },
+    { "title": "Global reach", "description": "42 regions, follow-the-sun operations and local expertise wherever you operate." }
+  ],
+  "industries": [
+    { "name": "Finance", "description": "Banking, payments & fintech" },
+    { "name": "Healthcare", "description": "Providers & life sciences" },
+    { "name": "Retail", "description": "Commerce at global scale" },
+    { "name": "Government", "description": "Secure public sector systems" },
+    { "name": "Telecom", "description": "Carrier-grade networks" },
+    { "name": "Energy", "description": "Grid & utility platforms" },
+    { "name": "Education", "description": "Learning infrastructure" },
+    { "name": "Logistics", "description": "Supply chain intelligence" }
+  ],
+  "testimonials": [
+    {
+      "quote": "Kivora rebuilt our payments core with zero downtime. What used to take days now takes minutes. They are simply the best engineering partner we have worked with.",
+      "name": "Priya Sharma",
+      "role": "CTO",
+      "company": "Meridian Bank"
+    },
+    {
+      "quote": "Their zero-trust rollout stopped three active threats in the first month. The team operates like an extension of our own, sharp, fast, relentless.",
+      "name": "David Chen",
+      "role": "CISO",
+      "company": "Helix Health"
+    },
+    {
+      "quote": "We scaled from 1M to 40M users without a single outage. Kivora's platform thinking is a decade ahead of everyone else.",
+      "name": "Amara Okafor",
+      "role": "VP Eng",
+      "company": "Novastore"
+    }
+  ],
+  "about": {
+    "description": "Founded by cloud architects, security researchers and machine-learning engineers, Kivora Tech Pvt. Ltd. exists to remove complexity from mission-critical technology. From hyperscale data centers to intelligent edge networks, we design systems that stay online, stay secure, and stay ahead.",
+    "description2": "Our multidisciplinary teams embed with yours, treating your uptime, your compliance posture and your roadmap as our own. We don't ship prototypes. We ship production-grade platforms trusted by regulated industries across the globe.",
+    "mission": "To empower enterprises to operate at planetary scale, delivering cloud, security and intelligence platforms that are radically reliable, effortlessly secure and built to evolve. We turn infrastructure from a cost center into a competitive advantage.",
+    "vision": "A world where every organization runs on autonomous, self-healing systems, where downtime is obsolete, breaches are anticipated and human engineers are freed to build what matters. We are engineering that future, one deployment at a time."
+  },
+  "timeline": [
+    { "year": 2013, "title": "Founded", "description": "Three engineers, one mission: kill downtime." },
+    { "year": 2016, "title": "First hyperscale", "description": "Launched our first billion-request platform." },
+    { "year": 2018, "title": "Security division", "description": "Opened our 24/7 global SOC." },
+    { "year": 2020, "title": "AI lab", "description": "Established the Kivora AI research group." },
+    { "year": 2022, "title": "Global expansion", "description": "Operations across 42 regions worldwide." },
+    { "year": 2024, "title": "Autonomous ops", "description": "Shipped self-healing infrastructure platform." }
+  ],
+  "faq": [
+    { "question": "What industries does Kivora Tech specialize in?", "answer": "We serve finance, healthcare, government, retail, telecom, energy, education and logistics, anywhere reliability, security and scale are mission-critical." },
+    { "question": "Do you work with our existing engineering team?", "answer": "Always. We embed with your teams, transfer knowledge and build golden paths so you own and evolve your platform long after we hand off." },
+    { "question": "How do you ensure security and compliance?", "answer": "Security is built into every commit. We are SOC 2 Type II certified and deliver HIPAA, PCI-DSS, GDPR and FedRAMP-aligned platforms with continuous compliance automation." },
+    { "question": "What is your typical engagement model?", "answer": "From focused advisory sprints to multi-year managed platforms, we tailor engagements to your goals. Most partnerships begin with a discovery phase and a fixed-scope blueprint." },
+    { "question": "How quickly can we get started?", "answer": "Discovery can begin within one week. Our architects respond to every inquiry within one business day." }
+  ]
+}
