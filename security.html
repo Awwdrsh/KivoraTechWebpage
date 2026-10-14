@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Security - Kivora Tech Pvt. Ltd.</title>
+<meta name="description" content="Security practices at Kivora Tech: zero-trust access, encryption, secure development, vulnerability management and incident response. We are not SOC 2 certified and do not claim to be." />
+<meta name="theme-color" content="#0a0a0b" />
+<meta name="robots" content="index, follow" />
+<link rel="canonical" href="https://www.kivoratech.com.np/security.html" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.kivoratech.com.np/security.html" />
+<meta property="og:title" content="Security - Kivora Tech Pvt. Ltd." />
+<meta property="og:description" content="Our security practices, stated plainly." />
+<meta property="og:image" content="https://www.kivoratech.com.np/og-image.png" />
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='4' fill='%230a0a0b'/%3E%3Crect x='2' y='2' width='60' height='60' rx='2' fill='none' stroke='%23b08947' stroke-width='2'/%3E%3Cpath d='M22 15 V49 M24 32 L40 15 M24 32 L40 49' stroke='%23c99a3f' stroke-width='7' stroke-linecap='round' fill='none'/%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<div class="bg-glow" aria-hidden="true"></div>
+<div class="bg-grid" aria-hidden="true"></div>
+
+<main class="legal-wrap legal">
+  <a href="index.html" class="legal-back">&larr; Back to site</a>
+
+  <h1>Security</h1>
+  <p class="legal-meta">Last updated: <span class="placeholder">DD Month YYYY</span> &middot; A plain statement of what we actually do.</p>
+
+  <p class="legal-note"><strong>Read this first:</strong> we are a three-person firm and we are <strong>not SOC 2 certified</strong>. We will never claim otherwise. If a procurement process requires the certificate itself, we are upfront that we do not have it — that conversation is cheaper now than after you have signed something.</p>
+
+  <h2 id="honest">1. What we can and cannot claim</h2>
+  <table>
+    <thead><tr><th scope="col">Item</th><th scope="col">Our position</th></tr></thead>
+    <tbody>
+      <tr><td>SOC 2 Type II</td><td><strong>Not certified.</strong> We build to comparable controls; we do not hold the attestation.</td></tr>
+      <tr><td>ISO/IEC 27001</td><td><span class="placeholder">Confirm: not held / in progress</span></td></tr>
+      <tr><td>Pentest reports</td><td>Available to clients under NDA, from <span class="placeholder">confirm frequency and scope</span></td></tr>
+      <tr><td>Data residency</td><td>Client's choice of region and provider. We deploy where your data policy requires.</td></tr>
+      <tr><td>Subprocessor list</td><td><span class="placeholder">publish or provide on request</span></td></tr>
+    </tbody>
+  </table>
+  <p>What we do offer is a small team that knows your system in detail, can be reached directly, and will tell you when something is wrong. For a firm this size that is often worth more to you than a certificate.</p>
+
+  <h2 id="access">2. Access control</h2>
+  <ul>
+    <li><strong>Least privilege.</strong> Access is granted per role and reviewed on a defined cycle, removed immediately on role change or departure.</li>
+    <li><strong>Phishing-resistant MFA</strong> required for all privileged and production access.</li>
+    <li><strong>Just-in-time elevation.</strong> Standing production access is avoided; elevation is time-bound and logged.</li>
+    <li><strong>Segregation of duties.</strong> Separate credentials for build, deploy and audit responsibilities.</li>
+    <li><strong>Device controls.</strong> Full-disk encryption, endpoint detection, enforced screen lock.</li>
+  </ul>
+
+  <h2 id="data">3. Data protection</h2>
+  <ul>
+    <li>Encryption in transit with current TLS, at rest with AES-256 or the platform equivalent.</li>
+    <li>Secrets held in a managed secret store; no long-lived credentials in source control.</li>
+    <li>Data minimisation, with retention enforced by automated lifecycle policies.</li>
+    <li>Production data is not copied into test environments unless masked and justified.</li>
+    <li>Encrypted, access-logged backups, restore-tested on a set schedule.</li>
+  </ul>
+
+  <h2 id="infra">4. Infrastructure</h2>
+  <ul>
+    <li>Immutable, infrastructure-as-code deployment with drift detection.</li>
+    <li>Network segmentation with deny-by-default rules between tiers and environments.</li>
+    <li>WAF, rate limiting and DDoS protection at the edge.</li>
+    <li>Centralised, tamper-evident logging with alerting on privileged actions.</li>
+    <li>Configuration baselines enforced as policy rather than documentation.</li>
+  </ul>
+
+  <h2 id="sdlc">5. Secure development</h2>
+  <ul>
+    <li>Automated dependency, SAST, secret and container scanning in CI, blocking merge on findings.</li>
+    <li>Signed artefacts with verified provenance before deployment.</li>
+    <li>Mandatory peer review; no self-merge to protected branches.</li>
+    <li>Branch protection with required status checks and linear history.</li>
+    <li>Threat modelling before design is fixed, not after.</li>
+  </ul>
+
+  <h2 id="vuln">6. Vulnerability management</h2>
+  <table>
+    <thead><tr><th scope="col">Severity</th><th scope="col">Target remediation</th></tr></thead>
+    <tbody>
+      <tr><td>Critical</td><td><span class="placeholder">confirm, e.g. 72 hours</span></td></tr>
+      <tr><td>High</td><td><span class="placeholder">confirm, e.g. 7 days</span></td></tr>
+      <tr><td>Medium</td><td><span class="placeholder">confirm, e.g. 30 days</span></td></tr>
+      <tr><td>Low</td><td><span class="placeholder">confirm, e.g. next maintenance window</span></td></tr>
+    </tbody>
+  </table>
+  <p>Continuous scanning runs against our own estate. External testing is performed <span class="placeholder">confirm cadence</span>, with findings tracked to closure.</p>
+
+  <h2 id="incident">7. Incident response</h2>
+  <ul>
+    <li>A documented and rehearsed incident response plan with named roles and escalation.</li>
+    <li>Detection and triage by the engineers who built the system.</li>
+    <li>Forensics capability and evidence preservation on client engagements.</li>
+    <li>Statutory notification within applicable deadlines, including GDPR's 72-hour rule where relevant.</li>
+    <li>Affected clients notified without undue delay, with a written post-incident review.</li>
+  </ul>
+
+  <h2 id="people">8. People</h2>
+  <ul>
+    <li>Background verification appropriate to role, before the start date.</li>
+    <li>Security and data-handling training at onboarding and annually after.</li>
+    <li>Confidentiality obligations in every contract, surviving termination.</li>
+    <li>Offboarding revokes access across all systems promptly on leaving.</li>
+  </ul>
+  <p>Because we are three people, everyone holds production access. That is a genuine single point of failure and we manage it deliberately: full MFA, audited elevation, and every privileged action logged.</p>
+
+  <h2 id="report">9. Reporting a vulnerability</h2>
+  <p>If you believe you have found a security issue in our systems, report it privately rather than disclosing it publicly.</p>
+  <p>Email <a href="mailto:info@kivoratech.com.np">info@kivoratech.com.np</a> with the subject "Security disclosure", including reproduction steps and the impact you observed.</p>
+  <p>We will acknowledge within <span class="placeholder">confirm, e.g. 2 business days</span>, keep you updated while we investigate, and credit you if you would like. We will not pursue legal action against good-faith research that respects privacy, avoids degrading the service, and gives us a reasonable window to fix before disclosure.</p>
+  <p>Do not access data that is not yours, and do not use social engineering, denial-of-service or physical attacks.</p>
+
+  <h2 id="contact">10. Contact</h2>
+  <ul>
+    <li>Security disclosures: <a href="mailto:info@kivoratech.com.np">info@kivoratech.com.np</a></li>
+    <li>Phone: <a href="tel:+97715550142">+977 1 555 0142</a></li>
+    <li>Post: Kivora Tech Pvt. Ltd., Kathmandu Tech Park, Kathmandu, Nepal</li>
+  </ul>
+
+  <div class="legal-foot">
+    <span>&copy; <span id="year">2026</span> Kivora Tech Pvt. Ltd.</span>
+    <nav aria-label="Legal"><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="security.html">Security</a></nav>
+  </div>
+</main>
+
+<script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+</body>
+</html>
